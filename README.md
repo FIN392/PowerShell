@@ -1,4 +1,4 @@
 # PowerShell
-This is just a repository of my PowerShell scripts.
+Just another Powershell scripting repository.
 
 Comments, critics, doubts, requests or sues will be welcomed.
