@@ -5,9 +5,9 @@ Multiple logs files can be created in a script at the same time and in multiple 
 
 First, the module needs to be imported:
 
-	```PowerShell
+```PowerShell
     Import-Module -Name '.\xLog.psm1' -Force
-	```
+```
 
 Then log should be initialized. At this stage log identification name, filename, format and timestamp format should be defined.
 
