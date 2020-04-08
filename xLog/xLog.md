@@ -1,32 +1,43 @@
+# xLog
 xLog is a PowerShell module to create log files.
 
 Multiple logs files can be created in a script at the same time and in multiple formats. Additionaly the entry can be displayed in console (host).
 
 First, the module needs to be imported:
 
+	```PowerShell
     Import-Module -Name '.\xLog.psm1' -Force
+	```
 
 Then log should be initialized. At this stage log identification name, filename, format and timestamp format should be defined.
 
-    Initialize-xLog -LogID LOG01 -File '.\Logs\Log_TXT.txt' -Format TXT -UTC
+	```PowerShell
+	Initialize-xLog -LogID LOG01 -File '.\Logs\Log_TXT.txt' -Format TXT -UTC
+	```
 
 At the end of this document examples of each file format can be found.
 
 Once initialized, entries can be added as required:
 
+	```PowerShell
     Write-xLog -LogID LOG01 -Console -Severity DEBUG -Message 'This is a debug text'
     Write-xLog -LogID LOG01 -Console -Severity INFO  -Message 'This is a information text'
     Write-xLog -LogID LOG01 -Console -Severity WARN  -Message 'This is a warning text'
     Write-xLog -LogID LOG01 -Console -Severity ERROR -Message 'This is a error long text with many characters and many information'
     Write-xLog -LogID LOG01 -Console -Severity FATAL -Message 'This is an fatal text'
+	```
 
 Finally, the log should be closed. This step is required because foot lines are added and some file format could be not valid without those lines (for example HTML files).
 
-    Close-xLog -LogID LOG01
+	```PowerShell
+	Close-xLog -LogID LOG01
+	```
 
 If there are not more scripts running in the session, the module can be removed.
 
-    Remove-Module -Name xLog -Force
+	```PowerShell
+	Remove-Module -Name xLog -Force
+	```
 
 ENJOY IT!!! and please contact me for any doubt or improvement proposal.
 
