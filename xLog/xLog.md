@@ -11,13 +11,13 @@ First, the module needs to be imported:
 Import-Module -Name '.\xLog.psm1' -Force
 ```
 
-Then log should be initialized. At this stage log identification name, filename, format and timestamp format should be defined.
+Then log should be initialized. At this stage the log identification name, filename, format and timestamp format are defined.
 
 ```PowerShell
 Initialize-xLog -LogID LOG01 -File '.\Logs\Log_TXT.txt' -Format TXT -UTC
 ```
 
-At the end of this document examples of each file format can be found.
+At the end of this document some examples of file formats can be found.
 
 Once initialized, entries can be added as required:
 
