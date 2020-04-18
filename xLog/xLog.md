@@ -68,7 +68,7 @@ Timestamp (UTC+02:00)    Severity Message
 "","","***EOF***"
 ```
 ### XML (with UTC timestamp)
-```
+```XML
 <?xml version="1.0"?>
 <Log>
 	<Entry><Timestamp>20200408T0901326117Z</Timestamp><Severity>DEBUG</Severity><Message>This is a debug text</Message></Entry>
@@ -79,7 +79,7 @@ Timestamp (UTC+02:00)    Severity Message
 </Log>
 ```
 ### HTML (with timestamp in local time)
-```
+```HTML
 <!DOCTYPE html>
 <html>
 	<head>
