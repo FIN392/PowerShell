@@ -10,7 +10,7 @@
 #
 
 
-# Initialize-xLog [-LogID] <string> [-File] <string> [-Format] {TXT | CSV | XML | HTML | JSON} [-UTC]
+# Initialize-xLog [-File] <string> [-Format] {TXT | CSV | XML | HTML | JSON} [-UTC]
 function Initialize-xLog {
 <# 
     .SYNOPSIS
@@ -24,11 +24,6 @@ function Initialize-xLog {
             - UTC value
         The specified file is created (including the full path if necessary) and headers lines are written in.
         VERBOSE Common parameter is available for detailed information of process.
-
-    .PARAMETER LogID
-        A name that will identify the log.
-        Mandatory.
-        Example: 'Log01', 'MasterLog', 'LogTransactions', etc.
 
     .PARAMETER File
         File name where log entries will be written.
@@ -56,7 +51,9 @@ function Initialize-xLog {
         None.
 
     .OUTPUTS
-        None.
+        *********************************************
+        OBJECT **************************************
+        *********************************************.
 
     .EXAMPLE
         Initialize-xLog -LogID MasterLog -File '.\Logs\20200407.txt' -Format TXT
@@ -78,12 +75,6 @@ function Initialize-xLog {
 #>
     [CmdletBinding()]
     param (
-        [Parameter ( Mandatory=$true, Position=1 )][ValidateScript({
-            if( (Test-Path variable:xLogID_$_) ){
-                throw "LogID already initialized"
-            }
-            return $true
-        })][String]$LogID,
         [Parameter ( Mandatory=$true, Position=2 )][ValidateScript({
             if( -Not ($_ | Test-Path -IsValid) ){
                 throw "Path name is not valid"
@@ -96,77 +87,71 @@ function Initialize-xLog {
 
     Write-Verbose ( 'Initializing log ' + $LogID + '...' )
 
-    # Create xLogID_ variable
-
-
-
-
+    # Create Log object
     $Log = @{
-        'FileName'=$ComputerName;
-        'Format'=$os.version;
-        'UTC'=$os.buildnumber;
+        'FileName'=$File;
+        'Format'=$Format;
+        'UTC'=$UTC;
     }
     $objLog = New-Object  -TypeName psobject -Property $Log
-    write-output $objLog
 
-
+    # # return $objLog
     
+    # New-Variable -Name xLogID_$LogID -Value @($File,$Format,$UTC) -Scope Global -Force
 
-    New-Variable -Name xLogID_$LogID -Value @($File,$Format,$UTC) -Scope Global -Force
-
-    # Get xLogID_ variable 
-    $LogInfo = Get-Variable -Name xLogID_$LogID -ValueOnly
+    # # Get xLogID_ variable 
+    # $LogInfo = Get-Variable -Name xLogID_$LogID -ValueOnly
 
     # Create folder
-    if ( -Not ( Test-Path -Path ( split-path -Path ($LogInfo[0]) -Parent ) ) ) {
-        [void]( New-Item -ItemType Directory -Force -Path (split-path -Path $LogInfo[0] -Parent) )
-        Write-Verbose ( '    Created path "' + (split-path -Path $LogInfo[0] -Parent) + '"' )
+    if ( -Not ( Test-Path -Path ( split-path -Path ($objLog.FileName) -Parent ) ) ) {
+        [void]( New-Item -ItemType Directory -Force -Path (split-path -Path $objLog.FileName -Parent) )
+        Write-Verbose ( '    Created path "' + (split-path -Path $objLog.FileName -Parent) + '"' )
     }
     
     # Create file
-    if ( -Not (Test-Path -Path $LogInfo[0]) ) {
-        [void]( New-Item -Path (split-path -Path $LogInfo[0] -Parent) -Name (split-path -Path $LogInfo[0] -Leaf) -ItemType 'file' )
-        Write-Verbose ( '    Created file "' + (split-path -Path $LogInfo[0] -Leaf) + '"' )
+    if ( -Not (Test-Path -Path $objLog.FileName) ) {
+        [void]( New-Item -Path (split-path -Path $objLog.FileName -Parent) -Name (split-path -Path $objLog.FileName -Leaf) -ItemType 'file' )
+        Write-Verbose ( '    Created file "' + (split-path -Path $objLog.FileName -Leaf) + '"' )
     }
 
-    Write-Verbose ( '    Set log file to "' + (Resolve-Path -Path $LogInfo[0]) + '"' )
+    Write-Verbose ( '    Set log file to "' + (Resolve-Path -Path $objLog.FileName) + '"' )
 
     # Set TimestampHeader
-    $TimestampHeader = 'Timestamp' + ( &{ If( -Not $LogInfo[2] ) { ' ' + (Get-Date -Format '(UTCK)') } } )
+    $TimestampHeader = 'Timestamp' + ( &{ If( -Not $objLog.UTC ) { ' ' + (Get-Date -Format '(UTCK)') } } )
     
     # Add headers to the file based on type of log
-    switch ( $LogInfo[1].ToUpper() ) {
+    switch ( $objLog.Format.ToUpper() ) {
         'TXT'   {
-            Out-File -FilePath $LogInfo[0]         -InputObject ( $TimestampHeader.PadRight(24) + ' Severity Message' + " "*38 )
-            Out-File -FilePath $LogInfo[0] -Append -InputObject ( "-"*24 + ' ' + "-"*8 + ' ' + "-"*45 )
+            Out-File -FilePath $objLog.FileName         -InputObject ( $TimestampHeader.PadRight(24) + ' Severity Message' + " "*38 )
+            Out-File -FilePath $objLog.FileName -Append -InputObject ( "-"*24 + ' ' + "-"*8 + ' ' + "-"*45 )
         }
         'CSV'   {
-            Out-File -FilePath $LogInfo[0]         -InputObject ( '"' + $TimestampHeader + '","Severity","Message"' )
+            Out-File -FilePath $objLog.FileName         -InputObject ( '"' + $TimestampHeader + '","Severity","Message"' )
         }
         'XML'   {
-            Out-File -FilePath $LogInfo[0]         -InputObject ( '<?xml version="1.0"?>' )
-            Out-File -FilePath $LogInfo[0] -Append -InputObject ( '<Log>' )
+            Out-File -FilePath $objLog.FileName         -InputObject ( '<?xml version="1.0"?>' )
+            Out-File -FilePath $objLog.FileName -Append -InputObject ( '<Log>' )
         }
         'HTML'  {
-            Out-File -FilePath $LogInfo[0]         -InputObject ( '<!DOCTYPE html>' )
-            Out-File -FilePath $LogInfo[0] -Append -InputObject ( '<html>' )
-            Out-File -FilePath $LogInfo[0] -Append -InputObject ( '	<head>' )
-            Out-File -FilePath $LogInfo[0] -Append -InputObject ( '		<style>' )
-            Out-File -FilePath $LogInfo[0] -Append -InputObject ( '			table, th, td {border:1px solid black;border-collapse:collapse;}' )
-            Out-File -FilePath $LogInfo[0] -Append -InputObject ( '			th, td {padding:5px;text-align:left;}' )
-            Out-File -FilePath $LogInfo[0] -Append -InputObject ( '		</style>' )
-            Out-File -FilePath $LogInfo[0] -Append -InputObject ( '	</head>' )
-            Out-File -FilePath $LogInfo[0] -Append -InputObject ( '	<body>' )
-            Out-File -FilePath $LogInfo[0] -Append -InputObject ( '		<table>' )
-            Out-File -FilePath $LogInfo[0] -Append -InputObject ( '			<tr><th>' + $TimestampHeader + '</th><th>Severity</th><th>Message</th></tr>' )
+            Out-File -FilePath $objLog.FileName         -InputObject ( '<!DOCTYPE html>' )
+            Out-File -FilePath $objLog.FileName -Append -InputObject ( '<html>' )
+            Out-File -FilePath $objLog.FileName -Append -InputObject ( '	<head>' )
+            Out-File -FilePath $objLog.FileName -Append -InputObject ( '		<style>' )
+            Out-File -FilePath $objLog.FileName -Append -InputObject ( '			table, th, td {border:1px solid black;border-collapse:collapse;}' )
+            Out-File -FilePath $objLog.FileName -Append -InputObject ( '			th, td {padding:5px;text-align:left;}' )
+            Out-File -FilePath $objLog.FileName -Append -InputObject ( '		</style>' )
+            Out-File -FilePath $objLog.FileName -Append -InputObject ( '	</head>' )
+            Out-File -FilePath $objLog.FileName -Append -InputObject ( '	<body>' )
+            Out-File -FilePath $objLog.FileName -Append -InputObject ( '		<table>' )
+            Out-File -FilePath $objLog.FileName -Append -InputObject ( '			<tr><th>' + $TimestampHeader + '</th><th>Severity</th><th>Message</th></tr>' )
         }
         'JSON'   {
-            Out-File -FilePath $LogInfo[0]         -InputObject ('[')
+            Out-File -FilePath $objLog.FileName         -InputObject ('[')
         }
         default { Write-Error ('"' + $_ + '" is not a valid log format') }
     }
 
-    Write-Verbose ( '    Added ' + $LogInfo[1].ToUpper() + ' headers to log file "' + $LogInfo[0] + '"' )
+    Write-Verbose ( '    Added ' + $objLog.Format.ToUpper() + ' headers to log file "' + $objLog.FileName + '"' )
 
     Write-Verbose ( '    Log ' + $LogID + ' initialized' )
 
@@ -290,32 +275,32 @@ function Write-xLog {
     }
 
     # Set TimestampHeader
-    $TimestampHeader = 'Timestamp' + ( &{ If( -Not $LogInfo[2] ) { ' ' + (Get-Date -Format '(UTCK)') } } )
+    $TimestampHeader = 'Timestamp' + ( &{ If( -Not $objLog.UTC ) { ' ' + (Get-Date -Format '(UTCK)') } } )
 
     # Set TimestampString
-    $TimestampString = ( &{ If( -Not $LogInfo[2] ) { ( Get-Date -Format 'yyyy-MM-dd HH:mm:ss.ffff' ) } else { ( Get-Date -Format FileDateTimeUniversal ) } } )
+    $TimestampString = ( &{ If( -Not $objLog.UTC ) { ( Get-Date -Format 'yyyy-MM-dd HH:mm:ss.ffff' ) } else { ( Get-Date -Format FileDateTimeUniversal ) } } )
     
     # Add text formated based on type of log
-    switch ( $LogInfo[1].ToUpper() ) {
+    switch ( $objLog.Format.ToUpper() ) {
         'TXT'   {
             $Line = $TimestampString.PadRight(24) + ' ' + $Severity.PadRight(8) + ' ' + ($Message+" "*45).Substring(0,45)
-            Out-File -FilePath $LogInfo[0] -Append -InputObject $Line
+            Out-File -FilePath $objLog.FileName -Append -InputObject $Line
             for($i=1; $i*45 -le $Message.Length; $i++){
                 $Line = ((" "*34)+($Message+" "*45).Substring($i*45,45))
-                Out-File -FilePath $LogInfo[0] -Append -InputObject $line
+                Out-File -FilePath $objLog.FileName -Append -InputObject $line
             }
         }
         'CSV'   {
-            Out-File -FilePath $LogInfo[0] -Append -InputObject ('"' + $TimestampString + '","' + $Severity + '","' + $Message + '"')
+            Out-File -FilePath $objLog.FileName -Append -InputObject ('"' + $TimestampString + '","' + $Severity + '","' + $Message + '"')
         }
         'XML'   {
-            Out-File -FilePath $LogInfo[0] -Append -InputObject ('	<Entry><' + $TimestampHeader + '>' + $TimestampString + '</Timestamp><Severity>' + $Severity + '</Severity><Message>' + $Message + '</Message></Entry>')
+            Out-File -FilePath $objLog.FileName -Append -InputObject ('	<Entry><' + $TimestampHeader + '>' + $TimestampString + '</Timestamp><Severity>' + $Severity + '</Severity><Message>' + $Message + '</Message></Entry>')
         }
         'HTML'  {
-            Out-File -FilePath $LogInfo[0] -Append -InputObject ('			<tr><td>' + $TimestampString + '</td><td style="background-color:' + $EntryColor + ';">' + $Severity + '</td><td>' + $Message + '</td></tr>')
+            Out-File -FilePath $objLog.FileName -Append -InputObject ('			<tr><td>' + $TimestampString + '</td><td style="background-color:' + $EntryColor + ';">' + $Severity + '</td><td>' + $Message + '</td></tr>')
         }
         'JSON'   {
-            Out-File -FilePath $LogInfo[0] -Append -InputObject ('	{"' + $TimestampHeader + '":"' + $TimestampString + '","Severity":"' + $Severity + '","Message":"' + $Message + '"},')
+            Out-File -FilePath $objLog.FileName -Append -InputObject ('	{"' + $TimestampHeader + '":"' + $TimestampString + '","Severity":"' + $Severity + '","Message":"' + $Message + '"},')
         }
         default { Write-Error ('"' + $_ + '" is not a valid log format') }
     }
@@ -361,43 +346,43 @@ function Close-xLog {
         Author: FIN392 - fin392@gmail.com
 #>
     [CmdletBinding()]
-    param (
-        [Parameter ( Mandatory=$true, Position=1 )][String]$LogID
-    )
+    # param (
+    #     [Parameter ( Mandatory=$true, Position=1 )][Object]$objLog
+    # )
 
-    Write-Verbose ( 'Closing log ' + $LogID + '...' )
+    Write-Verbose ( 'Closing log ' + $objLog.FileName + '...' )
 
-    # Get xLogID_ variable 
-    $LogInfo = Get-Variable -Name xLogID_$LogID -ValueOnly
+    # # Get xLogID_ variable 
+    # $LogInfo = Get-Variable -Name xLogID_$LogID -ValueOnly
 
     # Add footer based on type of log
-    switch ( $LogInfo[1].ToUpper() ) {
+    switch ( $objLog.Format.ToUpper() ) {
         'TXT'   {
-            Out-File -FilePath $LogInfo[0] -Append -InputObject ( "-"*24 + ' ' + "-"*8 + ' ' + "-"*45 )
+            Out-File -FilePath $objLog.FileName -Append -InputObject ( "-"*24 + ' ' + "-"*8 + ' ' + "-"*45 )
         }
         'CSV'   {
-            Out-File -FilePath $LogInfo[0] -Append -InputObject ('"","","***EOF***"')
+            Out-File -FilePath $objLog.FileName -Append -InputObject ('"","","***EOF***"')
         }
         'XML'   {
-            Out-File -FilePath $LogInfo[0] -Append -InputObject ('</Log>')
+            Out-File -FilePath $objLog.FileName -Append -InputObject ('</Log>')
         }
         'HTML'  {
-            Out-File -FilePath $LogInfo[0] -Append -InputObject ('		</table>')
-            Out-File -FilePath $LogInfo[0] -Append -InputObject ('	</body>')
-            Out-File -FilePath $LogInfo[0] -Append -InputObject ('</html>')
+            Out-File -FilePath $objLog.FileName -Append -InputObject ('		</table>')
+            Out-File -FilePath $objLog.FileName -Append -InputObject ('	</body>')
+            Out-File -FilePath $objLog.FileName -Append -InputObject ('</html>')
         }
         'JSON'   {
-            Out-File -FilePath $LogInfo[0] -Append -InputObject (']')
+            Out-File -FilePath $objLog.FileName -Append -InputObject (']')
         }
         default { Write-Error ('"' + $_ + '" is not a valid log format') }
     }
 
-    Write-Verbose ( '    Added ' + $LogInfo[1].ToUpper() + ' footer to log file "' + $LogInfo[0] + '"' )
+    Write-Verbose ( '    Added ' + $objLog.Format.ToUpper() + ' footer to log file "' + $objLog.FileName + '"' )
 
-    # Remove xLogID_ variable 
-    Remove-Variable -Name xLogID_$LogID -Scope Global
+    # # Remove xLogID_ variable 
+    # Remove-Variable -Name xLogID_$LogID -Scope Global
 
-    Write-Verbose ( '    Log ' + $LogID + ' closed' )
+    Write-Verbose ( '    Log ' + $objLog.FileName + ' closed' )
 
 }
 Export-ModuleMember -Function Close-xLog
