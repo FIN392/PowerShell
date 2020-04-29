@@ -6,12 +6,7 @@ function Get-SystemInfo {
         [string]$ComputerName = 'localhost'
     )
 
-    BEGIN{
-        Remove-Item -Path "C:\NoExist.Hopeso" -ErrorAction SilentlyContinue
-        Write-Warning "The error was $($error[0])"
-
-        [system.net.dns]::GetHostAddresses('www.bing.com')
-    }
+    BEGIN{}
     PROCESS{
         $os = Get-WmiObject -Class win32_operatingsystem -ComputerName $ComputerName
         $cs = Get-WmiObject -Class win32_computersystem -ComputerName $ComputerName
@@ -32,6 +27,15 @@ function Get-SystemInfo {
     END{}
 }
 
+# 'SilentlyContinue' example
+Remove-Item -Path "C:\NoExist.Hopeso" -ErrorAction SilentlyContinue
+Write-Warning "The error was: $($error[0])"
+
+# DNS
+[system.net.dns]::GetHostAddresses('www.bing.com')
+
+# Object
 Get-SystemInfo -ComputerName localhost | Format-List -Property *,@{n='RAM(GB)';e={$_.RAM / 1GB -as [int]}}
 
+# Object
 $Env:COMPUTERNAME | Get-SystemInfo
