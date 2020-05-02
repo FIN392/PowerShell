@@ -1,6 +1,5 @@
 Import-Module -Name '.\xLogClass.ps1' -Force
 
-
 $MyLogTXT = [xLog]::new()
 $MyLogCSV = [xLog]::new()
 $MyLogXML = [xLog]::new()

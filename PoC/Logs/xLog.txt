@@ -1,9 +1,9 @@
 Timestamp (UTC+02:00)    Severity Message                                      
 ------------------------ -------- ---------------------------------------------
-2020-05-03 01:32:19.3271 DEBUG    This is the text message                     
-2020-05-03 01:32:19.3789 INFO     This is the text message                     
-2020-05-03 01:32:19.4335 WARN     This is a entry with a text message too long 
+2020-05-03 01:37:06.8779 DEBUG    This is the text message                     
+2020-05-03 01:37:06.9393 INFO     This is the text message                     
+2020-05-03 01:37:06.9988 WARN     This is a entry with a text message too long 
                                   for a single line                            
-2020-05-03 01:32:19.4973 ERROR    This is the text message                     
-2020-05-03 01:32:19.5496 FATAL    This is the text message                     
+2020-05-03 01:37:07.0669 ERROR    This is the text message                     
+2020-05-03 01:37:07.1206 FATAL    This is the text message                     
 ------------------------ -------- ---------------------------------------------
