@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<Log>
+	<Entry><Timestamp>20200502T2332193476Z</Timestamp><Severity>DEBUG</Severity><Message>This is the text message</Message></Entry>
+	<Entry><Timestamp>20200502T2332193999Z</Timestamp><Severity>INFO</Severity><Message>This is the text message</Message></Entry>
+	<Entry><Timestamp>20200502T2332194631Z</Timestamp><Severity>WARN</Severity><Message>This is a entry with a text message too long for a single line</Message></Entry>
+	<Entry><Timestamp>20200502T2332195180Z</Timestamp><Severity>ERROR</Severity><Message>This is the text message</Message></Entry>
+	<Entry><Timestamp>20200502T2332195717Z</Timestamp><Severity>FATAL</Severity><Message>This is the text message</Message></Entry>
+</Log>

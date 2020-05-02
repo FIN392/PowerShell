@@ -1,0 +1,7 @@
+[
+	{"Timestamp (UTC+02:00)":"2020-05-03 01:32:19.3680","Severity":"DEBUG","Message":"This is the text message"},
+	{"Timestamp (UTC+02:00)":"2020-05-03 01:32:19.4234","Severity":"INFO","Message":"This is the text message"},
+	{"Timestamp (UTC+02:00)":"2020-05-03 01:32:19.4878","Severity":"WARN","Message":"This is a entry with a text message too long for a single line"},
+	{"Timestamp (UTC+02:00)":"2020-05-03 01:32:19.5401","Severity":"ERROR","Message":"This is the text message"},
+	{"Timestamp (UTC+02:00)":"2020-05-03 01:32:19.5953","Severity":"FATAL","Message":"This is the text message"},
+]
