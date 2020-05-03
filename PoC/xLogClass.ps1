@@ -1,4 +1,3 @@
-
 enum Format {
     TXT
     CSV
