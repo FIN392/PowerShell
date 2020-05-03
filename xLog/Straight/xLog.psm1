@@ -14,12 +14,14 @@
 function Initialize-xLog {
 	[CmdletBinding()]
 	param (
-		[Parameter ( Mandatory=$true, Position=1  )][ValidateScript({
-			if( -Not ($_ | Test-Path -IsValid) ){
-				throw "Path name is not valid"
-			}
-			return $true
-		})][String]$File,
+		[Parameter ( Mandatory=$true, Position=1 )]
+			[ValidateScript({
+				if( -Not ($_ | Test-Path -IsValid) ){
+					throw "Path name is not valid"
+				}
+				return $true
+			})]
+			[String]$File,
 		[Parameter ( Mandatory=$false )][Switch]$LocalTime,
 		[Parameter ( Mandatory=$false )][Switch]$Reverse,
 		[Parameter ( Mandatory=$false )][Switch]$Console,
@@ -52,7 +54,7 @@ function Initialize-xLog {
 
 	Write-Verbose ( '    Set log file to "' + (Resolve-Path -Path $Log.File) + '"' )
 
-	Write-Verbose ( 'Log ' + $LogID + ' initialized.' )
+	Write-Verbose ( 'Log initialized.' )
 
 	# Return object with log configuration
 	return $Log
@@ -65,49 +67,44 @@ Export-ModuleMember -Function Initialize-xLog
 function Write-xLog {
 	[CmdletBinding()]
 	param (
-		[Parameter ( Mandatory=$true, Position=1 )][String]$Log,
-		[Parameter ( Mandatory=$true, Position=2 )][ValidateSet('DEBUG','INFO','WARN','ERROR','FATAL')][String]$Severity,
+		[Parameter ( Mandatory=$true, Position=1 )][object]$Log,
+		[Parameter ( Mandatory=$true, Position=2 )]
+			[ValidateSet('DEBUG','INFO','WARN','ERROR','FATAL')]
+			[String]$Severity,
 		[Parameter ( Mandatory=$true, Position=3 )][String]$Message
 	)
 
-# 
-$Log | Format-List
-# 
-
-	Write-Verbose ( 'Adding entry to log ' + $Log.File + '...' )
+	Write-Verbose ( 'Adding entry to log...' )
 
 	# Set color based in severity
-	$EntryColor = switch ( $Severity ) {
-		'DEBUG' { 'Blue' }
-		'INFO'  { 'Green' }
-		'WARN'  { 'Yellow' }
-		'ERROR' { 'Red' }
-		'FATAL' { 'Red' }
+	$Color = switch ( $Severity ) {
+		'DEBUG' { ((Get-Host).UI.RawUI.ForegroundColor),((Get-Host).UI.RawUI.BackgroundColor) }
+		'INFO'  { 'Green',((Get-Host).UI.RawUI.BackgroundColor) }
+		'WARN'  { 'Yellow',((Get-Host).UI.RawUI.BackgroundColor) }
+		'ERROR' { 'Red',((Get-Host).UI.RawUI.BackgroundColor) }
+		'FATAL' { 'White','Red' }
 		Default { Write-Error ('"' + $_ + '" is not a valid log severity') }
 	}
 
-	# Write text in console (if set)
+	# Set Timestamp
+	If ( $Log.LocalTime ) {
+		$Timestamp = (Get-Date).ToString( "yyyy-MM-dd HH:mm:ss.fff (K)" )
+	} else {
+		$Timestamp = (Get-Date).ToUniversalTime().ToString( "yyyy-MM-dd HH:mm:ss.fff (+00:00)" )
+	}
+
+	# Write text in console if requested
 	if ( $Log.Console ) {
-		Write-Host ( ( Get-Date -Format 'yyyy-MM-dd HH:mm:ss.ffff' ) + ' | ' ) -NoNewline
-		Write-Host ( '{0,-5}' -f $Severity ) -NoNewline -ForegroundColor $EntryColor
+		Write-Host ( $Timestamp + ' | ' ) -NoNewline
+		Write-Host ( '{0,-5}' -f $Severity.ToUpper() ) -NoNewline -ForegroundColor $Color[0] -BackgroundColor $Color[1]
 		Write-Host ( ' | ' + $Message )
 	}
 
-	# Set TimestampHeader
-	$TimestampHeader = 'Timestamp' + ( &{ If( -Not $Log.LocalTime ) { ' ' + (Get-Date -Format '(UTCK)') } } )
-
-	# Set TimestampString
-	$TimestampString = ( &{ If( -Not $Log.LocalTime ) { ( Get-Date -Format 'yyyy-MM-dd HH:mm:ss.ffff' ) } else { ( Get-Date -Format FileDateTimeUniversal ) } } )
-	
 	# Add text formated based on type of log
-	# $Line = $TimestampString.PadRight(24) + ' ' + $Severity.PadRight(8) + ' ' + ($Message+" "*45).Substring(0,45)
-	# Out-File -FilePath $Log.File -Append -InputObject $Line
-	# for($i=1; $i*45 -le $Message.Length; $i++){
-	# 	$Line = ((" "*34)+($Message+" "*45).Substring($i*45,45))
-	# 	Out-File -FilePath $Log.File -Append -InputObject $line
-	# }
+	# $Line = $Timestamp.PadRight(24) + ' | ' + $Severity.ToUpper().PadRight(5) + ' | ' + $Message
+	Out-File -FilePath $Log.File -Append -Encoding $Log.Encoding -InputObject ($Timestamp.PadRight(24) + ' | ' + $Severity.ToUpper().PadRight(5) + ' | ' + $Message)
 
-	Write-Verbose ( '    Entry added to log ' + $LogID )
+	Write-Verbose ( 'Entry added to log.' )
 
 }
 Export-ModuleMember -Function Write-xLog
