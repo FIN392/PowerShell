@@ -259,7 +259,7 @@ function Write-xLog {
 
     # Set color based in severity
     $EntryColor = switch ( $Severity ) {
-        'DEBUG' { 'Green' }
+        'DEBUG' { 'Blue' }
         'INFO'  { 'Green' }
         'WARN'  { 'Yellow' }
         'ERROR' { 'Red' }
