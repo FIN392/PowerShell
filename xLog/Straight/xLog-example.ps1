@@ -1,45 +1,35 @@
-Import-Module -Name '.\xLog.psm1' -Force
 
-Initialize-xLog -LogID LOG01 -File '.\Logs\xLog.txt'  -Format TXT
-Initialize-xLog -LogID LOG02 -File '.\Logs\xLog.csv'  -Format CSV
-Initialize-xLog -LogID LOG03 -File '.\Logs\xLog.xml'  -Format XML  -UTC
-Initialize-xLog -LogID LOG04 -File '.\Logs\xLog.html' -Format HTML
-Initialize-xLog -LogID LOG05 -File '.\Logs\xLog.json' -Format JSON -UTC
+# Timestamp (UTC+02:00)    Severity Message                                      
+# ------------------------ -------- ---------------------------------------------
+# 2020-05-03 10:38:57.2435 DEBUG    This is a debug text                         
+# 2020-05-03 10:38:57.2591 INFO     This is a information text                   
+# 2020-05-03 10:38:57.2904 WARN     This is a warning text                       
+# 2020-05-03 10:38:57.3060 ERROR    This is a error long text with many character
+#                                   s and many information                       
+# 2020-05-03 10:38:57.3372 FATAL    This is an fatal text                        
 
-Write-xLog -LogID LOG01 -Console -Severity DEBUG -Message 'This is a debug text'
-Write-xLog -LogID LOG01 -Console -Severity INFO  -Message 'This is a information text'
-Write-xLog -LogID LOG01 -Console -Severity WARN  -Message 'This is a warning text'
-Write-xLog -LogID LOG01 -Console -Severity ERROR -Message 'This is a error long text with many characters and many information'
-Write-xLog -LogID LOG01 -Console -Severity FATAL -Message 'This is an fatal text'
+# Timestamp (UTC)          Severity Message                                      
+# ------------------------ -------- ---------------------------------------------
+# 20200503T0838574779Z
 
-Write-xLog -LogID LOG02 -Console -Severity DEBUG -Message 'This is a debug text'
-Write-xLog -LogID LOG02 -Console -Severity INFO  -Message 'This is a information text'
-Write-xLog -LogID LOG02 -Console -Severity WARN  -Message 'This is a warning text'
-Write-xLog -LogID LOG02 -Console -Severity ERROR -Message 'This is a error long text with many characters and many information'
-Write-xLog -LogID LOG02 -Console -Severity FATAL -Message 'This is an fatal text'
+# 2020-05-03 08:38:57.4779 (UTC+00:00) | INFO  | xxxxxxxxxxxx
+# 2020-05-03 08:38:57.4779 (UTC+05:30) | ERROR | xxxxxxxxxxxx
 
-Write-xLog -LogID LOG03 -Console -Severity DEBUG -Message 'This is a debug text'
-Write-xLog -LogID LOG03 -Console -Severity INFO  -Message 'This is a information text'
-Write-xLog -LogID LOG03 -Console -Severity WARN  -Message 'This is a warning text'
-Write-xLog -LogID LOG03 -Console -Severity ERROR -Message 'This is a error long text with many characters and many information'
-Write-xLog -LogID LOG03 -Console -Severity FATAL -Message 'This is an fatal text'
 
-Write-xLog -LogID LOG04 -Console -Severity DEBUG -Message 'This is a debug text'
-Write-xLog -LogID LOG04 -Console -Severity INFO  -Message 'This is a information text'
-Write-xLog -LogID LOG04 -Console -Severity WARN  -Message 'This is a warning text'
-Write-xLog -LogID LOG04 -Console -Severity ERROR -Message 'This is a error long text with many characters and many information'
-Write-xLog -LogID LOG04 -Console -Severity FATAL -Message 'This is an fatal text'
 
-Write-xLog -LogID LOG05 -Console -Severity DEBUG -Message 'This is a debug text'
-Write-xLog -LogID LOG05 -Console -Severity INFO  -Message 'This is a information text'
-Write-xLog -LogID LOG05 -Console -Severity WARN  -Message 'This is a warning text'
-Write-xLog -LogID LOG05 -Console -Severity ERROR -Message 'This is a error long text with many characters and many information'
-Write-xLog -LogID LOG05 -Console -Severity FATAL -Message 'This is an fatal text'
+# Import-Module -Name '.\xLog.psm1' -Force
 
-Close-xLog -LogID LOG01
-Close-xLog -LogID LOG02
-Close-xLog -LogID LOG03
-Close-xLog -LogID LOG04
-Close-xLog -LogID LOG05
+# $xLog = Initialize-xLog -File '.\Logs\xLog.txt' -UTC -Reverse -MaxLines 1000
 
-Remove-Module -Name xLog -Force
+# Write-xLog $xLog -Severity DEBUG - Message 'xxxxx'
+
+
+1..100 | ForEach-Object { Add-Content -Path .\LogExample.txt -Value "This is line $_." }
+
+Measure-Command -Expression {
+    $Log = Get-Content -Path .\LogExample.txt
+}
+
+
+
+# Remove-Module -Name xLog -Force
