@@ -1,10 +1,10 @@
 Import-Module -Name '.\xLog.psm1' -Force
 
-Initialize-xLog -LogID LOG01 -File '.\Logs\Log_TXT.txt'   -Format TXT
-Initialize-xLog -LogID LOG02 -File '.\Logs\Log_CSV.csv'   -Format CSV
-Initialize-xLog -LogID LOG03 -File '.\Logs\Log_XML.xml'   -Format XML  -UTC
-Initialize-xLog -LogID LOG04 -File '.\Logs\Log_HTML.html' -Format HTML
-Initialize-xLog -LogID LOG05 -File '.\Logs\Log_JOSN.json' -Format JSON -UTC
+Initialize-xLog -LogID LOG01 -File '.\Logs\xLog.txt'  -Format TXT
+Initialize-xLog -LogID LOG02 -File '.\Logs\xLog.csv'  -Format CSV
+Initialize-xLog -LogID LOG03 -File '.\Logs\xLog.xml'  -Format XML  -UTC
+Initialize-xLog -LogID LOG04 -File '.\Logs\xLog.html' -Format HTML
+Initialize-xLog -LogID LOG05 -File '.\Logs\xLog.json' -Format JSON -UTC
 
 Write-xLog -LogID LOG01 -Console -Severity DEBUG -Message 'This is a debug text'
 Write-xLog -LogID LOG01 -Console -Severity INFO  -Message 'This is a information text'

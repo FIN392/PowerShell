@@ -1,4 +1,4 @@
-# Import-Module -Name '.\xLogClass.ps1' -Force -Verbose
+Import-Module -Name '.\xLogClass.ps1' -Force
 
 $MyLogTXT = [xLog]::new()
 $MyLogCSV = [xLog]::new()
