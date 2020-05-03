@@ -17,32 +17,30 @@
 
 
 
-# Import-Module -Name '.\xLog.psm1' -Force
+Import-Module -Name '.\xLog.psm1' -Force
 
-# $xLog = Initialize-xLog -File '.\Logs\xLog.txt' -UTC -Reverse -MaxLines 1000
+$MyLog = Initialize-xLog -File '.\Logs\xLog.txt' -LocalTime -Reverse  -Console -Verbose
 
-# Write-xLog $xLog -Severity DEBUG - Message 'xxxxx'
+$MyLog | Format-List
 
-Remove-Item -Path '.\LogExample.txt' -ErrorAction Ignore 
-1..1000 | ForEach-Object { Add-Content -Path '.\LogExample.txt' -Value "This is line $_." }
+Write-xLog -Log $MyLog -Severity DEBUG - Message 'xxxxx'
 
-
-$LogFile = '.\LogExample.txt'
-$MaxLines = 5
-$LogEntry = 'XXXXXX'
-$UTC = $true
-$Reverse = $true
+# Remove-Item -Path '.\LogExample.txt' -ErrorAction Ignore 
+# 1..100 | ForEach-Object { Add-Content -Path '.\LogExample.txt' -Value "This is line $_." }
 
 
-if ( $Reverse ) {
-    $Log = Get-Content -Path '.\LogExample.txt'
-    Set-Content -Path '.\LogExample.txt' -Value $LogEntry,$Log
-} else {
-    Add-Content -Path '.\LogExample.txt' -Value $LogEntry
-}
+# $LogFile = '.\LogExample.txt'
+# $MaxLines = 5
+# $LogEntry = 'XXXXXX'
+# $UTC = $true
+# $Reverse = $false
 
-
-
+# if ( $Reverse ) {
+#     $Log = Get-Content -Path $LogFile
+#     Set-Content -Path $LogFile -Value $LogEntry,$Log -Force
+# } else {
+#     Add-Content -Path $LogFile -Value $LogEntry -Force
+# }
 
 
 # Remove-Module -Name xLog -Force
