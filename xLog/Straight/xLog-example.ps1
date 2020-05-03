@@ -23,12 +23,25 @@
 
 # Write-xLog $xLog -Severity DEBUG - Message 'xxxxx'
 
+Remove-Item -Path '.\LogExample.txt' -ErrorAction Ignore 
+1..1000 | ForEach-Object { Add-Content -Path '.\LogExample.txt' -Value "This is line $_." }
 
-1..100 | ForEach-Object { Add-Content -Path .\LogExample.txt -Value "This is line $_." }
 
-Measure-Command -Expression {
-    $Log = Get-Content -Path .\LogExample.txt
+$LogFile = '.\LogExample.txt'
+$MaxLines = 5
+$LogEntry = 'XXXXXX'
+$UTC = $true
+$Reverse = $true
+
+
+if ( $Reverse ) {
+    $Log = Get-Content -Path '.\LogExample.txt'
+    Set-Content -Path '.\LogExample.txt' -Value $LogEntry,$Log
+} else {
+    Add-Content -Path '.\LogExample.txt' -Value $LogEntry
 }
+
+
 
 
 
