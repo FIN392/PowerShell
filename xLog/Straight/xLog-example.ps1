@@ -23,7 +23,9 @@ $MyLog = Initialize-xLog -File '.\Logs\xLog.txt' -LocalTime -Reverse  -Console -
 
 $MyLog | Format-List
 
-Write-xLog -Log $MyLog -Severity DEBUG - Message 'xxxxx'
+Write-xLog -Log $MyLog -Severity DEBUG -Message 'xxxxx' -Verbose
+
+
 
 # Remove-Item -Path '.\LogExample.txt' -ErrorAction Ignore 
 # 1..100 | ForEach-Object { Add-Content -Path '.\LogExample.txt' -Value "This is line $_." }
