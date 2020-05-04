@@ -126,9 +126,3 @@ function Write-xLog {
 
 }
 Export-ModuleMember -Function Write-xLog
-
-# Cut-xLog { -MaxLines <int> | -MaxTime <int> }
-function Cut-xLog {
-}
-Export-ModuleMember -Function Write-xLog
-
