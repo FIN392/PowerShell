@@ -28,10 +28,13 @@ function Initialize-xLog {
 		[Parameter ( Mandatory=$false )][String]$Encoding = 'default'
 	)
 
+	$ErrorActionPreference = 'Stop'
+
 	Write-Verbose ( 'Initializing log...' )
 
 	# Create log object
 	$ArgLog = @{
+		'xLog'=$true;
 		'File'=$File;
 		'LocalTime'=$LocalTime;
 		'Reverse'=$Reverse;
@@ -58,6 +61,7 @@ function Initialize-xLog {
 
 	# Return object with log configuration
 	return $Log
+
 }
 Export-ModuleMember -Function Initialize-xLog
 
@@ -74,7 +78,13 @@ function Write-xLog {
 		[Parameter ( Mandatory=$true, Position=3 )][String]$Message
 	)
 
+	$ErrorActionPreference = 'Stop'
+
 	Write-Verbose ( 'Adding entry to log...' )
+
+	if ( -not $Log.xLog) {
+		Write-Error ('Value of -Log parameter is not a valid xLog object')
+	}
 
 	# Set color based in severity
 	$Color = switch ( $Severity ) {
@@ -87,7 +97,7 @@ function Write-xLog {
 	}
 
 	# Set Timestamp
-	If ( $Log.LocalTime ) {
+	if ( $Log.LocalTime ) {
 		$Timestamp = (Get-Date).ToString( "yyyy-MM-dd HH:mm:ss.fff (K)" )
 	} else {
 		$Timestamp = (Get-Date).ToUniversalTime().ToString( "yyyy-MM-dd HH:mm:ss.fff (+00:00)" )
@@ -100,9 +110,17 @@ function Write-xLog {
 		Write-Host ( ' | ' + $Message )
 	}
 
-	# Add text formated based on type of log
-	# $Line = $Timestamp.PadRight(24) + ' | ' + $Severity.ToUpper().PadRight(5) + ' | ' + $Message
-	Out-File -FilePath $Log.File -Append -Encoding $Log.Encoding -InputObject ($Timestamp.PadRight(24) + ' | ' + $Severity.ToUpper().PadRight(5) + ' | ' + $Message)
+	# Log entry to add
+	$LogEntry = $Timestamp.PadRight(24) + ' | ' + $Severity.ToUpper().PadRight(5) + ' | ' + $Message
+
+	#Add at top or botton of file
+	if ( $Log.Reverse ) {
+	    $LogContent = Get-Content -Path $Log.File
+	    Set-Content -Path $Log.File -Value $LogEntry,$LogContent -Force -Encoding $Log.Encoding
+	} else {
+	    Add-Content -Path $Log.File -Value $LogEntry -Force -Encoding $Log.Encoding
+	}
+	# Out-File -FilePath $Log.File -Append -Encoding $Log.Encoding -InputObject $LogEntry
 
 	Write-Verbose ( 'Entry added to log.' )
 
