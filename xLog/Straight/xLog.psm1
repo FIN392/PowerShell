@@ -88,7 +88,7 @@ function Write-xLog {
 
 	# Set color based in severity
 	$Color = switch ( $Severity ) {
-		'DEBUG' { ((Get-Host).UI.RawUI.ForegroundColor),((Get-Host).UI.RawUI.BackgroundColor) }
+		'DEBUG' { ((Get-Host).UI.RawUI.BackgroundColor),((Get-Host).UI.RawUI.ForegroundColor) }
 		'INFO'  { 'Green',((Get-Host).UI.RawUI.BackgroundColor) }
 		'WARN'  { 'Yellow',((Get-Host).UI.RawUI.BackgroundColor) }
 		'ERROR' { 'Red',((Get-Host).UI.RawUI.BackgroundColor) }

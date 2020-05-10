@@ -1,13 +1,12 @@
-# 2020-05-04 00:54:37.053 (+02:00) | DEBUG | xxxxxxxxxxxxxxxx
-# 2020-05-04 00:54:37.068 (+02:00) | INFO  | xxxxxxxxxxxxxxxx
-# 2020-05-04 00:54:37.084 (+02:00) | WARN  | xxxxxxxxxxxxxxxx
-# 2020-05-04 00:54:37.099 (+02:00) | ERROR | xxxxxxxxxxxxxxxx
-# 2020-05-04 00:54:37.115 (+02:00) | FATAL | xxxxxxxxxxxxxxxx
 
+
+# First, the module needs to be imported..
 Import-Module -Name '.\xLog.psm1' -Force
 
+# Then log should be initialized. At this stage the log format is defined and saved in a variable...
 $MyLog = Initialize-xLog -File '.\Logs\xLog.txt' -LocalTime -Reverse -Console -Encoding 'Unicode'
 
+# Now, simply add messages with a severity to the log...
 Write-xLog -Log $MyLog -Severity DEBUG -Message 'LOREM IPSUM
     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     Phasellus nisi arcu, commodo et ante id, tempus rutrum diam.
@@ -20,4 +19,5 @@ Write-xLog -Log $MyLog -Severity WARN  -Message ( 'Current path: ' + ( Get-Locat
 Write-xLog -Log $MyLog -Severity ERROR -Message ( (Get-Host).CurrentCulture.Name )
 Write-xLog -Log $MyLog -Severity FATAL -Message ( (Get-Host).CurrentCulture.DisplayName )
 
+# Finally, if there are not more scripts running in the session, the module can be removed.
 Remove-Module -Name xLog -Force
