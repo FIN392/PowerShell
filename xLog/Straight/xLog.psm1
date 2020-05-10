@@ -6,14 +6,85 @@
 # Version     : 0.2 - Initial release
 # 
 # For complete information on this PowerShell module go to:
-https://github.com/FIN392/PowerShell/tree/master/xLog
+# https://github.com/FIN392/PowerShell/tree/master/xLog
 #
 
 
-# <object> = Initialize-xLog [-File] <string> [-LocalTime] [-Reverse] [-Console] [-Encoding <"unknown;string;unicode;bigendianunicode;utf8;utf7;utf32;ascii;default;oem">]
+# <object> = Initialize-xLog [-File] <string> [-LocalTime] [-Reverse] [-Console] [-Encoding { Unicode | UTF7 | UTF8 | UTF32 | ASCII | BigEndianUnicode | Default | OEM }]
 function Initialize-xLog {
-	[CmdletBinding()]
-	param (
+<# 
+	.SYNOPSIS
+		Initialize a log file.
+
+	.DESCRIPTION
+		Return a object with the following information:
+			'xLog'     : TRUE. This is just a flag indicating that the variable is correct.
+			'File'     : Name of log file.
+			'LocalTime': Timestamp for log entries is UTC by default. If this parameter is present, the time will be based local time zone.
+			'Reverse'  : Entries are added at the end of the file by default. If this parameter is present, the entry is added at the beginning.
+			'Console'  : If this parameter is present, the entry is additionally shown in host (typically the console screen).
+			'Encoding' : Encode the entry in a specific character set. See additional information in the parameter '-Encoding' of cmdlet 'Set-Content'.
+		If it does not exist, the specified file is created (including the full path if necessary).
+		The common parameter VERBOSE is available for detailed information of process.
+
+	.PARAMETER File
+		File name where log entries will be written.
+		ATTENTION: If the file already exists entries are added to existing ones.
+		Mandatory.
+		Example: 'C:\TEMP\Log.xt', '\\SERVER\SHARE\output.txt', 'C:\Apps\Events.log', etc.
+
+	.PARAMETER LocalTime
+		If this parameter is present, the timestamp will be this format 'yyyy-MM-dd HH:mm:ss.fff (+hh:mm)', being '(+hh:mm)' the time zone offset from UTC.
+		Otherwise timestamp will be 'yyyy-MM-dd HH:mm:ss.fff (+00:00)'. It is UTC time (Universal Time Coordinate).
+		Optional.
+
+	.PARAMETER Reverse
+		Entries will be added at the beginning of the file.
+		By default, new entries are added at the end of the file.
+		Optional.
+
+	.PARAMETER Encoding
+		Entry text message will be encoded in the specificed character set.
+		Default value vary on PowerShell version. For example: 'ASCII' in versión 6 and 'UTF8NoBOM' in version 7.
+		See additional information in the parameter '-Encoding' of cmdlet 'Set-Content'.
+		Optional.
+
+	.INPUTS
+		None.
+
+	.OUTPUTS
+		Return a object with the following information:
+			'xLog'     : TRUE. This is just a flag indicating that the variable is correct.
+			'File'     : Name of log file.
+			'LocalTime': Timestamp for log entries is UTC by default. If this parameter is present, the time will be based local time zone.
+			'Reverse'  : Entries are added at the end of the file by default. If this parameter is present, the entry is added at the beginning.
+			'Console'  : If this parameter is present, the entry is additionally written in host (typically the console screen).
+			'Encoding' : Encode the entry in a specific character set. See additional information in the parameter '-Encoding' of cmdlet 'Set-Content'.
+
+	.EXAMPLE
+		$MyLog = Initialize-xLog -File '.\Logs\xLog.txt'
+	
+		Entries will be added to file '.\Logs\xLog.txt'.
+		Timestamp will be set to local time zone and format 'yyyy-MM-dd HH:mm:ss.fff (+00:00)'.
+		Log entries will be added at the end of the file.		
+
+	.EXAMPLE
+		$MyLog = Initialize-xLog -File '.\Logs\xLog.txt' -LocalTime -Reverse -Console -Encoding 'Unicode'
+
+		Entries will be added to file '.\Logs\xLog.txt'.
+		Timestamp will be set to local time zone and format 'yyyy-MM-dd HH:mm:ss.fff (+hh:mm)', being '(+hh:mm)' the time zone offset from UTC. 
+		Log entries will be added at the beginning of the file (reverse mode).
+		Entry will be written in host (typically the console screen).
+		Text message will be encoded as 'Unicode'.
+
+	.LINK
+		https://github.com/FIN392/PowerShell/tree/master/xLog
+
+	.NOTES
+		Author: FIN392 - fin392@gmail.com
+#>
+		[CmdletBinding()]
+		param (
 		[Parameter ( Mandatory=$true, Position=1 )]
 			[ValidateScript({
 				if( -Not ($_ | Test-Path -IsValid) ){
@@ -69,6 +140,70 @@ Export-ModuleMember -Function Initialize-xLog
 
 # Write-xLog [-Log] <object> [-Severity] {DEBUG | INFO | WARN | ERROR | FATAL} [-Message] <string>
 function Write-xLog {
+<# 
+	.SYNOPSIS
+		Write an entry in the format defined in the specified log file.
+
+	.DESCRIPTION
+		Write an entry in the log with this format:
+			yyyy-MM-dd HH:mm:ss.fff (+hh:mm) | {Severity} | {Text message}
+		'(+hh:mm)' is '(+00:00)' or the time zone offset from UTC.
+		{Severity} is one of the following 'DEBUG', 'INFO', 'WARN', 'ERROR' or 'FATAL'.
+		{Text message} is encoded in the specified character set.
+		The common parameter VERBOSE is available for detailed information of process.
+
+	.PARAMETER Log
+		Object with the following information:
+			'xLog'     : TRUE. This is just a flag indicating that the variable is correct.
+			'File'     : Name of log file.
+			'LocalTime': Timestamp for log entries is UTC by default. If this parameter is present, the time will be based local time zone.
+			'Reverse'  : Entries are added at the end of the file by default. If this parameter is present, the entry is added at the beginning.
+			'Console'  : If this parameter is present, the entry is additionally written in host (typically the console screen).
+			'Encoding' : Encode the entry in a specific character set. See additional information in the parameter '-Encoding' of cmdlet 'Set-Content'.
+		Mandatory.
+
+	.PARAMETER Severity
+		One of the following 'DEBUG', 'INFO', 'WARN', 'ERROR' or 'FATAL'.
+		Describe the severity of the logged event and generally follow these conventions:
+			DEBUG - Information that is helpful to developers.
+			INFO  - General information.
+			WARN  - An event that can potentially cause a process issue, but automatically recovered.
+			ERROR - Error which occurs on the process.
+			FATAL - Any error that is forcing a shutdown of the process.
+		Mandatory.
+
+	.PARAMETER Message
+		Text message describing the event.
+		Mandatory.
+
+	.INPUTS
+		None.
+
+	.OUTPUTS
+		None.
+
+	.EXAMPLE
+		Write-xLog -Log $MyLog -Severity DEBUG -Message 'LOREM IPSUM
+		    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    		Phasellus nisi arcu, commodo et ante id, tempus rutrum diam.
+    		Fusce fermentum aliquet metus ut posuere. Etiam at libero augue.
+    		Praesent at enim fermentum, porta nulla quis, elementum leo.
+    		Nulla fermentum diam a neque posuere ultricies.
+    		Praesent sem lorem, aliquam et purus.'
+
+		Add a paragraph to the log file with information for developers (DEBUG).		
+
+	.EXAMPLE
+		Write-xLog -Log $MyLog -Severity INFO  -Message ( 'PowerShell version ' + ( $PSVersionTable.PSVersion ) )
+
+		Add information about the PowerShell version to the log.
+
+	.LINK
+		https://github.com/FIN392/PowerShell/tree/master/xLog
+
+	.NOTES
+		Author: FIN392 - fin392@gmail.com
+#>
 	[CmdletBinding()]
 	param (
 		[Parameter ( Mandatory=$true, Position=1 )][object]$Log,

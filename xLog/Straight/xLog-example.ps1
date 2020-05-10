@@ -17,5 +17,9 @@ Write-xLog -Log $MyLog -Severity WARN  -Message ( 'Current path: ' + ( Get-Locat
 Write-xLog -Log $MyLog -Severity ERROR -Message ( (Get-Host).CurrentCulture.Name )
 Write-xLog -Log $MyLog -Severity FATAL -Message ( (Get-Host).CurrentCulture.DisplayName )
 
+
+Get-Help Initialize-xLog -Detailed
+Get-Help Write-xLog -Detailed
+
 # Finally, if there are not more scripts running in the session, the module can be removed
 Remove-Module -Name xLog -Force

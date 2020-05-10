@@ -6,7 +6,7 @@
 # Version     : 0.1 - Initial release
 # 
 # For complete information on this PowerShell module go to:
-https://github.com/FIN392/PowerShell/tree/master/xLog
+# https://github.com/FIN392/PowerShell/tree/master/xLog
 #
 
 
