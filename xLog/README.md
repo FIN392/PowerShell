@@ -77,9 +77,6 @@ Remove-Module -Name xLog -Force
 
 
 
-
-
-
 ENJOY IT!!! and please contact me for any doubt or improvement proposal.
 
 ## File Format Examples
