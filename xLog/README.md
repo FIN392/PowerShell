@@ -82,7 +82,6 @@ __-Encoding__ _{CharSet}_
 
 <ul>
 	Entries text messages will be encoded in the specificed character set.<br>
-<ul>
 	Possible options and default value vary on PowerShell version. For example: 'ASCII' in versión 6 and 'UTF8NoBOM' in version 7.<br>
 	See additional information in the parameter '-Encoding' of cmdlet 'Set-Content'.<br>
 	Optional.<br>
@@ -94,11 +93,43 @@ __-Encoding__ _{CharSet}_
 Write-xLog [-Log] {object} [-Severity] {DEBUG | INFO | WARN | ERROR | FATAL} [-Message] {string}
 ```
 
--Log {object}
+__-Log__ _{object}_
 
--Severity {DEBUG | INFO | WARN | ERROR | FATAL}
+<ul>
+	Object with the following information:<br>
+	<ul>
+		'xLog'     : TRUE. This is just a flag indicating that the variable is correct.<br>
+		'File'     : Name of log file.<br>
+		'LocalTime': Timestamp for log entries is UTC by default. If this parameter is present, the time will be based local time zone.<br>
+		'Reverse'  : Entries are added at the end of the file by default. If this parameter is present, the entry is added at the beginning.<br>
+		'Console'  : If this parameter is present, the entry is additionally written in host (typically the console screen).<br>
+		'Encoding' : Encode the entry in a specific character set. See additional information in the parameter '-Encoding' of cmdlet 'Set-Content'.<br>
+	</ul>
+	Mandatory.<br>
+</ul>
 
--Message {string}
+__-Severity__ _{DEBUG | INFO | WARN | ERROR | FATAL}_
+
+<ul>
+	One of the following 'DEBUG', 'INFO', 'WARN', 'ERROR' or 'FATAL'.<br>
+	Describe the severity of the logged event and generally follow these conventions:<br>
+	<ul>
+		DEBUG - Information that is helpful to developers.<br>
+		INFO  - General information.<br>
+		WARN  - An event that can potentially cause a process issue, but automatically recovered.<br>
+		ERROR - Error which occurs on the process.<br>
+		FATAL - Any error that is forcing a shutdown of the process.<br>
+	</ul>
+	Mandatory.<br>
+</ul>
+
+__-Message__ _{string}_
+
+<ul>
+	Text message describing the event.<br>
+	Mandatory.<br>
+</ul>
+
 
 
 
