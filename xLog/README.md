@@ -5,7 +5,7 @@ Multiple logs files can be created at the same time in a script, each one with a
 
 ENJOY IT!!! and please contact me for any doubt or improvement proposal.
 
-(#How-to-use-it)
+[How to use it?](#How-to-use-it)
 
 
 
