@@ -10,7 +10,7 @@
 #
 
 
-# <object> = Initialize-xLog [-File] <string> [-LocalTime] [-Reverse] [-Console] [-Encoding { Unicode | UTF7 | UTF8 | UTF32 | ASCII | BigEndianUnicode | Default | OEM }]
+# <object> = Initialize-xLog [-File] <string> [-LocalTime] [-Reverse] [-Console] [-Encoding <CharSet>]
 function Initialize-xLog {
 <# 
 	.SYNOPSIS
@@ -43,8 +43,13 @@ function Initialize-xLog {
 		By default, new entries are added at the end of the file.
 		Optional.
 
+	.PARAMETER Console
+		Entries will be additionally shown in host (typically the console screen).
+		By default, entries are not shown.
+		Optional.
+
 	.PARAMETER Encoding
-		Entry text message will be encoded in the specificed character set.
+		Entries text messages will be encoded in the specificed character set.
 		Default value vary on PowerShell version. For example: 'ASCII' in versión 6 and 'UTF8NoBOM' in version 7.
 		See additional information in the parameter '-Encoding' of cmdlet 'Set-Content'.
 		Optional.
