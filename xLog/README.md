@@ -42,14 +42,14 @@ Remove-Module -Name xLog -Force
 ## How to initialize a log?
 
 ```PowerShell
-<object> = Initialize-xLog [-File] <string> [-LocalTime] [-Reverse] [-Console] [-Encoding <CharSet>]
+{object} = Initialize-xLog [-File] {string} [-LocalTime] [-Reverse] [-Console] [-Encoding {CharSet}]
 ```
 
--File <string><br>
-		File name where log entries will be written.<br>
-		ATTENTION: If the file already exists entries are added to existing ones.<br>
-		Mandatory.<br>
-		Example: 'C:\TEMP\Log.xt', '\\SERVER\SHARE\output.txt', 'C:\Apps\Events.log', etc.<br>
+-File {string}<br>
+>		File name where log entries will be written.<br>
+>		ATTENTION: If the file already exists entries are added to existing ones.<br>
+>		Mandatory.<br>
+>		Example: 'C:\TEMP\Log.xt', '\\SERVER\SHARE\output.txt', 'C:\Apps\Events.log', etc.<br>
 
 -LocalTime<br>
 		If this parameter is present, the timestamp will be this format 'yyyy-MM-dd HH:mm:ss.fff (+hh:mm)', being '(+hh:mm)' the time zone offset from UTC.<br>
@@ -71,6 +71,18 @@ Remove-Module -Name xLog -Force
 		Possible options and default value vary on PowerShell version. For example: 'ASCII' in versión 6 and 'UTF8NoBOM' in version 7.<br>
 		See additional information in the parameter '-Encoding' of cmdlet 'Set-Content'.<br>
 		Optional.<br>
+
+## How to add an entry to a log?
+
+```PowerShell
+Write-xLog [-Log] {object} [-Severity] {DEBUG | INFO | WARN | ERROR | FATAL} [-Message] {string}
+```
+
+-Log {object}
+
+-Severity {DEBUG | INFO | WARN | ERROR | FATAL}
+
+-Message {string}
 
 
 
@@ -103,52 +115,4 @@ Timestamp (UTC+02:00)    Severity Message
 "20200408T0901324287Z","FATAL","This is an fatal text"
 "","","***EOF***"
 ```
-### XML (with UTC timestamp)
-```XML
-<?xml version="1.0"?>
-<Log>
-	<Entry><Timestamp>20200408T0901326117Z</Timestamp><Severity>DEBUG</Severity><Message>This is a debug text</Message></Entry>
-	<Entry><Timestamp>20200408T0901326467Z</Timestamp><Severity>INFO</Severity><Message>This is a information text</Message></Entry>
-	<Entry><Timestamp>20200408T0901326788Z</Timestamp><Severity>WARN</Severity><Message>This is a warning text</Message></Entry>
-	<Entry><Timestamp>20200408T0901327167Z</Timestamp><Severity>ERROR</Severity><Message>This is a error long text with many characters and many information</Message></Entry>
-	<Entry><Timestamp>20200408T0901327448Z</Timestamp><Severity>FATAL</Severity><Message>This is an fatal text</Message></Entry>
-</Log>
-```
-### HTML (with timestamp in local time)
-```HTML
-<!DOCTYPE html>
-<html>
-	<head>
-		<style>
-			table, th, td {border:1px solid black;border-collapse:collapse;}
-			th, td {padding:5px;text-align:left;}
-		</style>
-	</head>
-	<body>
-		<table>
-			<tr><th>Timestamp (UTC+02:00)</th><th>Severity</th><th>Message</th></tr>
-			<tr><td>2020-04-08 11:01:32.8028</td><td style="background-color:Green;">DEBUG</td><td>This is a debug text</td></tr>
-			<tr><td>2020-04-08 11:01:32.8358</td><td style="background-color:Green;">INFO</td><td>This is a information text</td></tr>
-			<tr><td>2020-04-08 11:01:32.8688</td><td style="background-color:Yellow;">WARN</td><td>This is a warning text</td></tr>
-			<tr><td>2020-04-08 11:01:32.8997</td><td style="background-color:Red;">ERROR</td><td>This is a error long text with many characters and many information</td></tr>
-			<tr><td>2020-04-08 11:01:32.9428</td><td style="background-color:Red;">FATAL</td><td>This is an fatal text</td></tr>
-		</table>
-	</body>
-</html>
-```
-### JSON (with UTC timestamp)
-```
-[
-	{"Timestamp":"20200408T0901339186Z","Severity":"DEBUG","Message":"This is a debug text"},
-	{"Timestamp":"20200408T0901339416Z","Severity":"INFO","Message":"This is a information text"},
-	{"Timestamp":"20200408T0901339666Z","Severity":"WARN","Message":"This is a warning text"},
-	{"Timestamp":"20200408T0901339986Z","Severity":"ERROR","Message":"This is a error long text with many characters and many information"},
-	{"Timestamp":"20200408T0901340316Z","Severity":"FATAL","Message":"This is an fatal text"},
-]
-```
-
-
-
-
-
 
