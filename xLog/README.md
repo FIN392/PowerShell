@@ -1,14 +1,14 @@
 # xLog
 xLog is a PowerShell module to create log files.
 
-Multiple logs files can be created at the same time in a script, each one with a different format. Additionaly to the log file, the entries can be displayed in the host (typically the console screen).
+Multiple logs files can be created at the same time in a script, each one with a different format. Additionaly, the entries can be displayed in the host (typically the console screen).
 
 [How to use it?](#How-to-use-it)<br>
 [How to initialize a log?](#How-to-initialize-a-log)<br>
 [How to add an entry to a log?](#How-to-add-an-entry-to-a-log)<br>
 [How the log files looks like?](#How-the-log-files-looks-like)<br>
 
-ENJOY IT!!! and please contact me for any doubt or improvement proposal.
+ENJOY IT!!! and feel free to check [issues page](https://github.com/FIN392/PowerShell/issues/).
 
 ## How to use it?
 
