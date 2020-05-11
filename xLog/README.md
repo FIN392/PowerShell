@@ -1,7 +1,14 @@
 # xLog
 xLog is a PowerShell module to create log files.
 
-Multiple logs files can be created at the same time in a script, each one with a different format. Additionaly to the log file, the entries can be displayed in the host (typically the console screen).
+Multiple logs files can be created at the same time in a script, each one with a different format. Additionaly, the entries can be displayed in the host (typically the console screen).
+
+[How to use it?](#How-to-use-it)<br>
+[How to initialize a log?](#How-to-initialize-a-log)<br>
+[How to add an entry to a log?](#How-to-add-an-entry-to-a-log)<br>
+[How the log files looks like?](#How-the-log-files-looks-like)<br>
+
+ENJOY IT!!! and feel free to check [issues page](https://github.com/FIN392/PowerShell/issues/).
 
 ## How to use it?
 
@@ -130,36 +137,36 @@ __-Message__ _{string}_
 	Mandatory.<br>
 </ul>
 
+## How the log files looks like?
 
+Example of log with timestamp on UTC and encoding ASCII
 
-
-
-
-
-ENJOY IT!!! and please contact me for any doubt or improvement proposal.
-
-## File Format Examples
-
-### TXT (with timestamp in local time)
 ```
-Timestamp (UTC+02:00)    Severity Message                                      
------------------------- -------- ---------------------------------------------
-2020-04-08 11:01:31.8987 DEBUG    This is a debug text                         
-2020-04-08 11:01:31.9277 INFO     This is a information text                   
-2020-04-08 11:01:31.9527 WARN     This is a warning text                       
-2020-04-08 11:01:31.9797 ERROR    This is a error long text with many character
-                                  s and many information                       
-2020-04-08 11:01:32.0267 FATAL    This is an fatal text                        
------------------------- -------- ---------------------------------------------
-```
-### CSV (with UTC timestamp)
-```
-"Timestamp","Severity","Message"
-"20200408T0901323177Z","DEBUG","This is a debug text"
-"20200408T0901323417Z","INFO","This is a information text"
-"20200408T0901323727Z","WARN","This is a warning text"
-"20200408T0901323957Z","ERROR","This is a error long text with many characters and many information"
-"20200408T0901324287Z","FATAL","This is an fatal text"
-"","","***EOF***"
+2020-05-11 07:27:18.863 (+00:00) | DEBUG | PowerShell version 7.0.0
+2020-05-11 07:27:18.873 (+00:00) | INFO  | LOREM IPSUM
+	Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+	Phasellus nisi arcu, commodo et ante id, tempus rutrum diam.
+	Fusce fermentum aliquet metus ut posuere. Etiam at libero augue.
+	Praesent at enim fermentum, porta nulla quis, elementum leo.
+	Nulla fermentum diam a neque posuere ultricies.
+	Praesent sem lorem, aliquam et purus.
+2020-05-11 07:27:18.883 (+00:00) | WARN  | Current path: C:\Users\FERNAJL\OneDrive - Abbott\GitHub\PowerShell\xLog
+2020-05-11 07:27:18.893 (+00:00) | ERROR | es-ES | Spanish (Spain, International Sort)
+2020-05-11 07:27:18.901 (+00:00) | FATAL | Spanish special characters: ??????????????
 ```
 
+Same entries with timestamp on local time zone, encoding UNICODE and written in reverse (the latest line in the top).
+
+```
+2020-05-11 09:27:18.823 (+02:00) | FATAL | Spanish special characters: áéíóúüñÁÉÍÓÚÜÑ
+2020-05-11 09:27:18.784 (+02:00) | ERROR | es-ES | Spanish (Spain, International Sort)
+2020-05-11 09:27:18.761 (+02:00) | WARN  | Current path: C:\Users\FERNAJL\OneDrive - Abbott\GitHub\PowerShell\xLog
+2020-05-11 09:27:18.716 (+02:00) | INFO  | LOREM IPSUM
+	Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+	Phasellus nisi arcu, commodo et ante id, tempus rutrum diam.
+	Fusce fermentum aliquet metus ut posuere. Etiam at libero augue.
+	Praesent at enim fermentum, porta nulla quis, elementum leo.
+	Nulla fermentum diam a neque posuere ultricies.
+	Praesent sem lorem, aliquam et purus.
+2020-05-11 09:27:18.695 (+02:00) | DEBUG | PowerShell version 7.0.0
+```
