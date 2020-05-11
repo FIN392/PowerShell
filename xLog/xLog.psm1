@@ -5,7 +5,7 @@
 # Last update : 2020-05-03
 # Version     : 0.2 - Initial release
 # 
-# For complete information on this PowerShell module go to:
+# For more information on this PowerShell module go to:
 # https://github.com/FIN392/PowerShell/tree/master/xLog
 #
 
