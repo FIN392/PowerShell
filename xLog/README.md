@@ -98,12 +98,12 @@ __-Log__ _{object}_
 <ul>
 	Object with the following information:<br>
 	<ul>
-		'xLog'     : TRUE. This is just a flag indicating that the variable is correct.<br>
-		'File'     : Name of log file.<br>
+		'xLog': TRUE. This is just a flag indicating that the variable is correct.<br>
+		'File': Name of log file.<br>
 		'LocalTime': Timestamp for log entries is UTC by default. If this parameter is present, the time will be based local time zone.<br>
-		'Reverse'  : Entries are added at the end of the file by default. If this parameter is present, the entry is added at the beginning.<br>
-		'Console'  : If this parameter is present, the entry is additionally written in host (typically the console screen).<br>
-		'Encoding' : Encode the entry in a specific character set. See additional information in the parameter '-Encoding' of cmdlet 'Set-Content'.<br>
+		'Reverse': Entries are added at the end of the file by default. If this parameter is present, the entry is added at the beginning.<br>
+		'Console': If this parameter is present, the entry is additionally written in host (typically the console screen).<br>
+		'Encoding': Encode the entry in a specific character set. See additional information in the parameter '-Encoding' of cmdlet 'Set-Content'.<br>
 	</ul>
 	Mandatory.<br>
 </ul>
@@ -114,11 +114,11 @@ __-Severity__ _{DEBUG | INFO | WARN | ERROR | FATAL}_
 	One of the following 'DEBUG', 'INFO', 'WARN', 'ERROR' or 'FATAL'.<br>
 	Describe the severity of the logged event and generally follow these conventions:<br>
 	<ul>
-		DEBUG - Information that is helpful to developers.<br>
-		INFO  - General information.<br>
-		WARN  - An event that can potentially cause a process issue, but automatically recovered.<br>
-		ERROR - Error which occurs on the process.<br>
-		FATAL - Any error that is forcing a shutdown of the process.<br>
+		DEBUG: Information that is helpful to developers.<br>
+		INFO: General information.<br>
+		WARN: An event that can potentially cause a process issue, but automatically recovered.<br>
+		ERROR: Error which occurs on the process.<br>
+		FATAL: Any error that is forcing a shutdown of the process.<br>
 	</ul>
 	Mandatory.<br>
 </ul>
