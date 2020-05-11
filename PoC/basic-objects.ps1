@@ -26,7 +26,7 @@ function Get-SystemInfo {
 	}
 	END{}
 }
-	s
+
 
 # 'SilentlyContinue' example
 Remove-Item -Path "C:\NoExist.Hopeso" -ErrorAction SilentlyContinue

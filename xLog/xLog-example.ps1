@@ -17,10 +17,10 @@ Write-xLog -Log $MyLog -Severity WARN  -Message ( 'Current path: ' + ( Get-Locat
 Write-xLog -Log $MyLog -Severity ERROR -Message ( (Get-Host).CurrentCulture.Name + ' | ' + (Get-Host).CurrentCulture.DisplayName )
 Write-xLog -Log $MyLog -Severity FATAL -Message ( 'Spanish special characters: áéíóúüñÁÉÍÓÚÜÑ' )
 
-# Just another example. Different initialization...
+# Just another example. Different initialization but...
 $MyLog = Initialize-xLog -File '.\xLogs\xLog_UTC_ASCII.txt' -Encoding 'ASCII'
 
-# ...same entries.
+# ...same entries. (See different encoding for Spanish special characters)
 Write-xLog -Log $MyLog -Severity DEBUG -Message ( 'PowerShell version ' + ( $PSVersionTable.PSVersion ) )
 Write-xLog -Log $MyLog -Severity INFO  -Message 'LOREM IPSUM
 	Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -36,4 +36,6 @@ Write-xLog -Log $MyLog -Severity FATAL -Message ( 'Spanish special characters: �
 # Finally, if there are not more scripts running in the session, the module can be removed
 Remove-Module -Name xLog -Force
 
-# Check files '.\xLogs\xLog_LocalTime_Reverse_Unicode.txt' and '.\xLogs\xLog_UTC_ASCII.txt'.
+# 
+# Check log files created at '.\xLogs\'.
+# 
