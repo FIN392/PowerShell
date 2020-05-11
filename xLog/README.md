@@ -47,10 +47,12 @@ Remove-Module -Name xLog -Force
 
 __-File__ _{string}_
 
+<ul>
 File name where log entries will be written.<br>
 Example: 'C:\TEMP\Log.xt', '\\SERVER\SHARE\output.txt', 'C:\Apps\Events.log', etc.<br>
 ATTENTION: If the file already exists entries are added to existing ones.<br>
 Mandatory.<br>
+</ul>
 
 __-LocalTime__
 
