@@ -45,32 +45,37 @@ Remove-Module -Name xLog -Force
 {object} = Initialize-xLog [-File] {string} [-LocalTime] [-Reverse] [-Console] [-Encoding {CharSet}]
 ```
 
--File {string}<br>
->		File name where log entries will be written.<br>
->		ATTENTION: If the file already exists entries are added to existing ones.<br>
->		Mandatory.<br>
->		Example: 'C:\TEMP\Log.xt', '\\SERVER\SHARE\output.txt', 'C:\Apps\Events.log', etc.<br>
+__-File__ _{string}_
 
--LocalTime<br>
-		If this parameter is present, the timestamp will be this format 'yyyy-MM-dd HH:mm:ss.fff (+hh:mm)', being '(+hh:mm)' the time zone offset from UTC.<br>
-		Otherwise timestamp will be 'yyyy-MM-dd HH:mm:ss.fff (+00:00)'. It is UTC time (Universal Time Coordinate).<br>
-		Optional.<br>
+File name where log entries will be written.<br>
+ATTENTION: If the file already exists entries are added to existing ones.<br>
+Mandatory.<br>
+Example: 'C:\TEMP\Log.xt', '\\SERVER\SHARE\output.txt', 'C:\Apps\Events.log', etc.<br>
 
--Reverse<br>
-		Entries will be added at the beginning of the file.<br>
-		By default, new entries are added at the end of the file.<br>
-		Optional.<br>
+__-LocalTime__
 
--Console<br>
-		Entries will be additionally shown in host (typically the console screen).<br>
-		By default, entries are not shown.<br>
-		Optional.<br>
+If this parameter is present, the timestamp will be this format 'yyyy-MM-dd HH:mm:ss.fff (+hh:mm)', being '(+hh:mm)' the time zone offset from UTC.<br>
+Otherwise timestamp will be 'yyyy-MM-dd HH:mm:ss.fff (+00:00)'. It is UTC time (Universal Time Coordinate).<br>
+Optional.<br>
 
--Encoding <CharSet><br>
-		Entries text messages will be encoded in the specificed character set.<br>
-		Possible options and default value vary on PowerShell version. For example: 'ASCII' in versión 6 and 'UTF8NoBOM' in version 7.<br>
-		See additional information in the parameter '-Encoding' of cmdlet 'Set-Content'.<br>
-		Optional.<br>
+__-Reverse__
+
+Entries will be added at the beginning of the file.<br>
+By default, new entries are added at the end of the file.<br>
+Optional.<br>
+
+__-Console__
+
+Entries will be additionally shown in host (typically the console screen).<br>
+By default, entries are not shown.<br>
+Optional.<br>
+
+__-Encoding__ _{CharSet}_
+
+Entries text messages will be encoded in the specificed character set.<br>
+Possible options and default value vary on PowerShell version. For example: 'ASCII' in versión 6 and 'UTF8NoBOM' in version 7.<br>
+See additional information in the parameter '-Encoding' of cmdlet 'Set-Content'.<br>
+Optional.<br>
 
 ## How to add an entry to a log?
 
