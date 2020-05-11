@@ -10,7 +10,7 @@
 #
 
 
-# <object> = Initialize-xLog [-File] <string> [-LocalTime] [-Reverse] [-Console] [-Encoding <CharSet>]
+# {object} = Initialize-xLog [-File] {string} [-LocalTime] [-Reverse] [-Console] [-Encoding {CharSet}]
 function Initialize-xLog {
 <# 
 	.SYNOPSIS
@@ -29,9 +29,9 @@ function Initialize-xLog {
 
 	.PARAMETER File
 		File name where log entries will be written.
+		Example: 'C:\TEMP\Log.xt', '\\SERVER\SHARE\output.txt', 'C:\Apps\Events.log', etc.
 		ATTENTION: If the file already exists entries are added to existing ones.
 		Mandatory.
-		Example: 'C:\TEMP\Log.xt', '\\SERVER\SHARE\output.txt', 'C:\Apps\Events.log', etc.
 
 	.PARAMETER LocalTime
 		If this parameter is present, the timestamp will be this format 'yyyy-MM-dd HH:mm:ss.fff (+hh:mm)', being '(+hh:mm)' the time zone offset from UTC.
@@ -50,7 +50,7 @@ function Initialize-xLog {
 
 	.PARAMETER Encoding
 		Entries text messages will be encoded in the specificed character set.
-		Default value vary on PowerShell version. For example: 'ASCII' in versión 6 and 'UTF8NoBOM' in version 7.
+		Possible options and default value vary on PowerShell version. For example: 'ASCII' in versión 6 and 'UTF8NoBOM' in version 7.
 		See additional information in the parameter '-Encoding' of cmdlet 'Set-Content'.
 		Optional.
 
@@ -143,7 +143,7 @@ Export-ModuleMember -Function Initialize-xLog
 
 
 
-# Write-xLog [-Log] <object> [-Severity] {DEBUG | INFO | WARN | ERROR | FATAL} [-Message] <string>
+# Write-xLog [-Log] {object} [-Severity] {DEBUG | INFO | WARN | ERROR | FATAL} [-Message] {string}
 function Write-xLog {
 <# 
 	.SYNOPSIS
