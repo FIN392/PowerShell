@@ -1,0 +1,7 @@
+[
+	{"Timestamp":"20200504T0946066581Z","Severity":"DEBUG","Message":"This is a debug text"},
+	{"Timestamp":"20200504T0946066797Z","Severity":"INFO","Message":"This is a information text"},
+	{"Timestamp":"20200504T0946067016Z","Severity":"WARN","Message":"This is a warning text"},
+	{"Timestamp":"20200504T0946067237Z","Severity":"ERROR","Message":"LOREM IPSUM. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nisi arcu, commodo et ante id, tempus rutrum diam. Fusce fermentum aliquet metus ut posuere. Etiam at libero augue. Praesent at enim fermentum, porta nulla quis, elementum leo. Nulla fermentum diam a neque posuere ultricies. Praesent sem lorem, aliquam et purus."},
+	{"Timestamp":"20200504T0946067435Z","Severity":"FATAL","Message":"This is an fatal text"},
+]

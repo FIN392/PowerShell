@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<Log>
+	<Entry><Timestamp>20200504T0946064320Z</Timestamp><Severity>DEBUG</Severity><Message>This is a debug text</Message></Entry>
+	<Entry><Timestamp>20200504T0946064566Z</Timestamp><Severity>INFO</Severity><Message>This is a information text</Message></Entry>
+	<Entry><Timestamp>20200504T0946064732Z</Timestamp><Severity>WARN</Severity><Message>This is a warning text</Message></Entry>
+	<Entry><Timestamp>20200504T0946064869Z</Timestamp><Severity>ERROR</Severity><Message>LOREM IPSUM. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nisi arcu, commodo et ante id, tempus rutrum diam. Fusce fermentum aliquet metus ut posuere. Etiam at libero augue. Praesent at enim fermentum, porta nulla quis, elementum leo. Nulla fermentum diam a neque posuere ultricies. Praesent sem lorem, aliquam et purus.</Message></Entry>
+	<Entry><Timestamp>20200504T0946065020Z</Timestamp><Severity>FATAL</Severity><Message>This is an fatal text</Message></Entry>
+</Log>

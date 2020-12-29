@@ -1,0 +1,7 @@
+"Timestamp (UTC+02:00)","Severity","Message"
+"2020-05-04 11:46:06.3487","DEBUG","This is a debug text"
+"2020-05-04 11:46:06.3625","INFO","This is a information text"
+"2020-05-04 11:46:06.3800","WARN","This is a warning text"
+"2020-05-04 11:46:06.3999","ERROR","LOREM IPSUM. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nisi arcu, commodo et ante id, tempus rutrum diam. Fusce fermentum aliquet metus ut posuere. Etiam at libero augue. Praesent at enim fermentum, porta nulla quis, elementum leo. Nulla fermentum diam a neque posuere ultricies. Praesent sem lorem, aliquam et purus."
+"2020-05-04 11:46:06.4170","FATAL","This is an fatal text"
+"","","***EOF***"
