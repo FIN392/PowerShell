@@ -6,6 +6,6 @@
 	Praesent at enim fermentum, porta nulla quis, elementum leo.
 	Nulla fermentum diam a neque posuere ultricies.
 	Praesent sem lorem, aliquam et purus.
-2020-05-11 07:27:18.883 (+00:00) | WARN  | Current path: C:\Users\FERNAJL\OneDrive - Abbott\GitHub\PowerShell\xLog
+2020-05-11 07:27:18.883 (+00:00) | WARN  | Current path: C:\Users\FIN392\GitHub\PowerShell\xLog
 2020-05-11 07:27:18.893 (+00:00) | ERROR | es-ES | Spanish (Spain, International Sort)
 2020-05-11 07:27:18.901 (+00:00) | FATAL | Spanish special characters: ??????????????
