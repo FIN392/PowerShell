@@ -150,7 +150,7 @@ Example of log with timestamp on UTC and encoding ASCII
 	Praesent at enim fermentum, porta nulla quis, elementum leo.
 	Nulla fermentum diam a neque posuere ultricies.
 	Praesent sem lorem, aliquam et purus.
-2020-05-11 07:27:18.883 (+00:00) | WARN  | Current path: C:\Users\FERNAJL\OneDrive - Abbott\GitHub\PowerShell\xLog
+2020-05-11 07:27:18.883 (+00:00) | WARN  | Current path: C:\Users\FIN392\GitHub\PowerShell\xLog
 2020-05-11 07:27:18.893 (+00:00) | ERROR | es-ES | Spanish (Spain, International Sort)
 2020-05-11 07:27:18.901 (+00:00) | FATAL | Spanish special characters: ??????????????
 ```
@@ -160,7 +160,7 @@ Same entries with timestamp on local time zone, encoding UNICODE and written in 
 ```
 2020-05-11 09:27:18.823 (+02:00) | FATAL | Spanish special characters: áéíóúüñÁÉÍÓÚÜÑ
 2020-05-11 09:27:18.784 (+02:00) | ERROR | es-ES | Spanish (Spain, International Sort)
-2020-05-11 09:27:18.761 (+02:00) | WARN  | Current path: C:\Users\FERNAJL\OneDrive - Abbott\GitHub\PowerShell\xLog
+2020-05-11 09:27:18.761 (+02:00) | WARN  | Current path: C:\Users\FIN392\GitHub\PowerShell\xLog
 2020-05-11 09:27:18.716 (+02:00) | INFO  | LOREM IPSUM
 	Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 	Phasellus nisi arcu, commodo et ante id, tempus rutrum diam.
