@@ -88,8 +88,8 @@ function Initialize-xLog {
 	.NOTES
 		Author: FIN392 - fin392@gmail.com
 #>
-		[CmdletBinding()]
-		param (
+	[CmdletBinding()]
+	param (
 		[Parameter ( Mandatory=$true, Position=1 )]
 			[ValidateScript({
 				if( -Not ($_ | Test-Path -IsValid) ){
