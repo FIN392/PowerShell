@@ -2,7 +2,7 @@
 Import-Module -Name '.\xLog.psm1' -Force
 
 # Then the log should be initialized. At this stage you choose several format options
-$MyLog = Initialize-xLog -File '.\xLogs\xLog_LocalTime_Reverse_Unicode.txt' -LocalTime -Reverse -Console -Encoding 'Unicode'
+$MyLog = New-xLog -File '.\xLogs\xLog_LocalTime_Reverse_Unicode.txt' -LocalTime -Reverse -Console -Encoding 'Unicode'
 
 # Now, simply add messages with the chosen severity to the log
 Write-xLog -Log $MyLog -Severity DEBUG -Message ( 'PowerShell version ' + ( $PSVersionTable.PSVersion ) )
@@ -18,7 +18,7 @@ Write-xLog -Log $MyLog -Severity ERROR -Message ( (Get-Host).CurrentCulture.Name
 Write-xLog -Log $MyLog -Severity FATAL -Message ( 'Spanish special characters: áéíóúüñÁÉÍÓÚÜÑ' )
 
 # Just another example. Different initialization but...
-$MyLog2 = Initialize-xLog -File '.\xLogs\xLog_UTC_ASCII.txt' -Encoding 'ASCII'
+$MyLog2 = New-xLog -File '.\xLogs\xLog_UTC_ASCII.txt' -Encoding 'ASCII'
 
 # ...same entries. (See different encoding for Spanish special characters)
 Write-xLog -Log $MyLog2 -Severity DEBUG -Message ( 'PowerShell version ' + ( $PSVersionTable.PSVersion ) )
