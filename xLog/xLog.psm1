@@ -10,11 +10,11 @@
 #
 
 
-# {object} = Initialize-xLog [-File] {string} [-LocalTime] [-Reverse] [-Console] [-Encoding {CharSet}]
-function Initialize-xLog {
+# {object} = New-xLog [-File] {FileName} [-LocalTime] [-Reverse] [-Console] [-Encoding {CharSet}]
+function New-xLog {
 <# 
 	.SYNOPSIS
-		Initialize a log file.
+		Set a log file.
 
 	.DESCRIPTION
 		Return a object with the following information:
@@ -67,14 +67,14 @@ function Initialize-xLog {
 			'Encoding' : Encode the entry in a specific character set. See additional information in the parameter '-Encoding' of cmdlet 'Set-Content'.
 
 	.EXAMPLE
-		$MyLog = Initialize-xLog -File '.\Logs\xLog.txt'
+		$MyLog = New-xLog -File '.\Logs\xLog.txt'
 	
 		Entries will be added to file '.\Logs\xLog.txt'.
 		Timestamp will be set to local time zone and format 'yyyy-MM-dd HH:mm:ss.fff (+00:00)'.
 		Log entries will be added at the end of the file.		
 
 	.EXAMPLE
-		$MyLog = Initialize-xLog -File '.\Logs\xLog.txt' -LocalTime -Reverse -Console -Encoding 'Unicode'
+		$MyLog = New-xLog -File '.\Logs\xLog.txt' -LocalTime -Reverse -Console -Encoding 'Unicode'
 
 		Entries will be added to file '.\Logs\xLog.txt'.
 		Timestamp will be set to local time zone and format 'yyyy-MM-dd HH:mm:ss.fff (+hh:mm)', being '(+hh:mm)' the time zone offset from UTC. 
@@ -106,7 +106,7 @@ function Initialize-xLog {
 
 	$ErrorActionPreference = 'Stop'
 
-	Write-Verbose ( 'Initializing log...' )
+	Write-Verbose ( 'Setting log...' )
 
 	# Create log object
 	$ArgLog = @{
@@ -133,17 +133,17 @@ function Initialize-xLog {
 
 	Write-Verbose ( '    Set log file to "' + (Resolve-Path -Path $Log.File) + '"' )
 
-	Write-Verbose ( 'Log initialized.' )
+	Write-Verbose ( 'Log set.' )
 
 	# Return object with log configuration
 	return $Log
 
 }
-Export-ModuleMember -Function Initialize-xLog
+Export-ModuleMember -Function New-xLog
 
 
 
-# Write-xLog [-Log] {object} [-Severity] {DEBUG | INFO | WARN | ERROR | FATAL} [-Message] {string}
+# Write-xLog [-Log] {xLogObject} [-Severity] {DEBUG | INFO | WARN | ERROR | FATAL} [-Message] {MessageString}
 function Write-xLog {
 <# 
 	.SYNOPSIS
