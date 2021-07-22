@@ -17,23 +17,7 @@
 [guid]$ScriptGUID = "f778fc3c-f29c-4704-8b9f-0d86b5c6a492"
 
 
-
-# Get script version in URL
-# [version]$URLScriptVersion = Get-URLScriptVersion -URL $ScriptURI.AbsoluteUri
-[version]$URLScriptVersion = "2.2.3.4"
-
-# If newer then download and install
-if ( $URLScriptVersion -gt $ScriptVersion ) {
-
-	Write-Host "Download and install"
-	$TempFile = "$env:temp\$($ScriptURI.AbsolutePath | Split-Path  -leaf)"
-	Invoke-WebRequest -Uri $ScriptURI.AbsoluteUri -OutFile $TempFile
-	
-	
-}
-
-
-
+"*** 2 "
 
 
 
