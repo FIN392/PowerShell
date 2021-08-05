@@ -1,8 +1,8 @@
 # PowerShell learning for Windows Batch speakers
 
-The first thing a language teacher tells you is that you shouldn't translate word for word from your mother tongue; you must '*think in the new language*'.
+The first thing a language teacher tells you is that you shouldn't translate word for word from your mother tongue; you must *think in the new language*.
 
-Fully agree, but this list would be a good starting point for that new *way of thinking*.
+Fully agree, but this list will be a good starting point for that new *way of thinking*.
 
 | Windows Batch | PowerShell |
 |---|---|
