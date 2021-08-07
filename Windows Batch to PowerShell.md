@@ -4,63 +4,62 @@ The first thing a language teacher tells you is that you shouldn't translate wor
 
 Fully agree, but this list will be a good starting point for that new *way of thinking*.
 
-| Windows Batch | PowerShell |
-|---|---|
-| HELP | Get-Help |
-| ASSOC | Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts" |
-| ATTRIB | (Get-ChildItem).Attributes = 'ReadOnly, Hidden' |
-| CACLS | Set-Acl |
-| CALL | function |
-| CD | Set-Location -Path C:\Temp |
-| CLS | Clear-Host |
-| COLOR | $Host.UI.RawUI.BackgroundColor / $Host.UI.RawUI.ForegroundColor |
-| COMP | Get-FileHash |
-| COMPACT | (Get-ChildItem).Attributes = 'Compressed' |
-| COPY | Copy-Item |
-| DATE | Get-Date |
-| DEL | Remove-Item |
-| DIR | Get-ChildItem |
-| ECHO | Write-Host |
-| EXIT | exit |
-| FINDSTR | Select-String |
-| FOR | For-Each |
-| GPRESULT | Get-GPResultantSetOfPolicy |
-| ICACLS | Set-Acl |
-| IF | if |
-| LABEL | Set-Volume |
-| MD | New-Item -ItemType Directory |
-| MKLINK | New-Item -ItemType SymbolicLink |
-| MORE | Out-Host -Paging |
-| MOVE | Move-Item |
-| OPENFILES | Get-SmbOpenFile |
-| PATH | Set-Item -Path Env:Path |
-| PAUSE | [Console]::ReadKey() |
-| POPD | Pop-Location |
-| PRINT | Out-Printer |
-| PROMPT | function prompt {} |
-| PUSHD | Push-Location |
-| RD | Remove-Item |
-| REM | # |
-| REN | Rename-Item |
-| REPLACE | Copy-Item |
-| ROBOCOPY | Copy-Item |
-| SET | Set-Variable |
-| SETLOCAL | $script:VariableName |
-| SC | Get-Service |
-| SCHTASKS | New-ScheduledTaskAction |
-| SHUTDOWN | Stop-Computer |
-| SORT | Sort-Object |
-| START | Start-Process |
-| SUBST | New-PSDrive |
-| SYSTEMINFO | Get-ComputerInfo |
-| TASKLIST | Get-Process |
-| TASKKILL | Stop-Process |
-| TIME | Get-Date |
-| TITLE | $Host.UI.RawUI.WindowTitle |
-| TREE | Get-ChildItem |
-| TYPE | Get-Content |
-| VER | $Host.Version.ToString() |
-| VOL | Get-Volume |
-| XCOPY | Copy-Item |
-| WMIC | Get-WmiObject |
-
+| Windows Batch | PowerShell                                                                                 |
+|---------------|--------------------------------------------------------------------------------------------|
+| HELP          | Get-Help                                                                                   |
+| ASSOC         | Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts" |
+| ATTRIB        | (Get-ChildItem).Attributes = 'ReadOnly, Hidden'                                            |
+| CACLS         | Set-Acl                                                                                    |
+| CALL          | function                                                                                   |
+| CD            | Set-Location -Path C:\Temp                                                                 |
+| CLS           | Clear-Host                                                                                 |
+| COLOR         | $Host.UI.RawUI.BackgroundColor / $Host.UI.RawUI.ForegroundColor                            |
+| COMP          | Get-FileHash                                                                               |
+| COMPACT       | (Get-ChildItem).Attributes = 'Compressed'                                                  |
+| COPY          | Copy-Item                                                                                  |
+| DATE          | Get-Date                                                                                   |
+| DEL           | Remove-Item                                                                                |
+| DIR           | Get-ChildItem                                                                              |
+| ECHO          | Write-Host                                                                                 |
+| EXIT          | exit                                                                                       |
+| FINDSTR       | Select-String                                                                              |
+| FOR           | For-Each                                                                                   |
+| GPRESULT      | Get-GPResultantSetOfPolicy                                                                 |
+| ICACLS        | Set-Acl                                                                                    |
+| IF            | if                                                                                         |
+| LABEL         | Set-Volume                                                                                 |
+| MD            | New-Item -ItemType Directory                                                               |
+| MKLINK        | New-Item -ItemType SymbolicLink                                                            |
+| MORE          | Out-Host -Paging                                                                           |
+| MOVE          | Move-Item                                                                                  |
+| OPENFILES     | Get-SmbOpenFile                                                                            |
+| PATH          | Set-Item -Path Env:Path                                                                    |
+| PAUSE         | [Console]::ReadKey()                                                                       |
+| POPD          | Pop-Location                                                                               |
+| PRINT         | Out-Printer                                                                                |
+| PROMPT        | function prompt {}                                                                         |
+| PUSHD         | Push-Location                                                                              |
+| RD            | Remove-Item                                                                                |
+| REM           | #                                                                                          |
+| REN           | Rename-Item                                                                                |
+| REPLACE       | Copy-Item                                                                                  |
+| ROBOCOPY      | Copy-Item                                                                                  |
+| SET           | Get-Item -Path Env:*                                                                       |
+| SETLOCAL      | $script:VariableName                                                                       |
+| SC            | Get-Service                                                                                |
+| SCHTASKS      | New-ScheduledTaskAction                                                                    |
+| SHUTDOWN      | Stop-Computer                                                                              |
+| SORT          | Sort-Object                                                                                |
+| START         | Start-Process                                                                              |
+| SUBST         | New-PSDrive                                                                                |
+| SYSTEMINFO    | Get-ComputerInfo                                                                           |
+| TASKLIST      | Get-Process                                                                                |
+| TASKKILL      | Stop-Process                                                                               |
+| TIME          | Get-Date                                                                                   |
+| TITLE         | $Host.UI.RawUI.WindowTitle                                                                 |
+| TREE          | Get-ChildItem                                                                              |
+| TYPE          | Get-Content                                                                                |
+| VER           | $Host.Version.ToString()                                                                   |
+| VOL           | Get-Volume                                                                                 |
+| XCOPY         | Copy-Item                                                                                  |
+| WMIC          | Get-WmiObject                                                                              |
