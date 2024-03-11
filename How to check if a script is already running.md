@@ -1,4 +1,3 @@
-
 ```PowerShell
 # Get a temp filename for the Extimated Upcoming Execution (EUE)
 $strFileEUE = "$env:temp\" + $((Get-Item $PSCommandPath).Basename) + "_ExtimatedUpcomingExecution.tmp"
@@ -20,6 +19,3 @@ if ( (Get-Date) -gt [DateTime](Get-Content -Path "$strFileEUE") ) {
 #
 ((Get-Date).Add((New-TimeSpan -Days 0 -Hours 0 -Minutes 0 -Seconds 10))).GetDateTimeFormats('o') | Out-File -FilePath "$strFileEUE"
 ```
- 
-
- 
