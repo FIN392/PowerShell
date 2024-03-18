@@ -63,3 +63,11 @@ Fully agree, but this list will be a good starting point for that new *way of th
 | VOL           | Get-Volume                                                                                 |
 | XCOPY         | Copy-Item                                                                                  |
 | WMIC          | Get-WmiObject                                                                              |
+| %RANDOM%      | Get-Random -Minimum 0 -Maximum 32767                                                       |
+| %DATE%        | Get-Date -Format "yyyy/MM/dd"                                                              |
+| %TIME%        | Get-Date -Format "HH::mm:ss"                                                               |
+| %CD%          | Get-Location                                                                               |
+| %~d0          | Split-Path -Path $PSCommandPath -Qualifier                                                 |
+| %~p0          | (Get-Item $PSCommandPath ).Directory.Name                                                  |
+| %~n0          | (Get-Item $PSCommandPath ).Basename                                                        |
+| %~x0          | (Get-Item $PSCommandPath ).Extension                                                       |
