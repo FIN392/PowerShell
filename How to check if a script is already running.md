@@ -1,21 +1,26 @@
 ```PowerShell
-# Get a temp filename for the Extimated Upcoming Execution (EUE)
-$strFileEUE = "$env:temp\" + $((Get-Item $PSCommandPath).Basename) + "_ExtimatedUpcomingExecution.tmp"
+# Lock file name
+$strLockFile = "$env:TEMP\" + $((Get-Item $PSCommandPath).Basename) + ".lck"
 
-#
-# At the beginning of the script it is checked if the estimated date of the
-# next execution has already passed,
-# this would mean that the script is not working
-#
-if ( (Get-Date) -gt [DateTime](Get-Content -Path "$strFileEUE") ) {
-  "*`n* No working`n*"
-} else {
-  "*`n* Working fine`n*"
+# Check if lock file if properly updated
+if ( Test-Path $strLockFile -PathType Leaf ) {
+    if ( (Get-Date) -le [DateTime](Get-Content -Path "$strLockFile") ) {
+      "*"
+      "* Another instance of this script appears to be running correctly."
+      "* No additional instance should be run and therefore this script will be canceled."
+      "*"
+      exit -1
+    }
 }
 
+# Set how long the script will take to run.
+# If it takes longer, it is considered to have failed and therefore another instance of the script can be executed.
+((Get-Date).Add((New-TimeSpan -Days 0 -Hours 0 -Minutes 0 -Seconds 10))).GetDateTimeFormats('o') `
+    | Out-File -FilePath "$strLockFile"
+
 #
-# In each interaction of the script, the file is updated with
-# the estimated date for the next execution
 #
-((Get-Date).Add((New-TimeSpan -Days 0 -Hours 0 -Minutes 0 -Seconds 10))).GetDateTimeFormats('o') | Out-File -FilePath "$strFileEUE"
+# YOUR CODE GOES HERE
+#
+#
 ```
