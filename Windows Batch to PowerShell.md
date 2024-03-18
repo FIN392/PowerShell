@@ -63,11 +63,16 @@ Fully agree, but this list will be a good starting point for that new *way of th
 | VOL           | Get-Volume                                                                                 |
 | XCOPY         | Copy-Item                                                                                  |
 | WMIC          | Get-WmiObject                                                                              |
-| %~d0          | Split-Path -Path $PSCommandPath -Qualifier                                                 |
-| %~p0          | (Get-Item $PSCommandPath ).Directory.Name                                                  |
-| %~n0          | (Get-Item $PSCommandPath ).Basename                                                        |
-| %~x0          | (Get-Item $PSCommandPath ).Extension                                                       |
-| %CD%          | Get-Location                                                                               |
-| %DATE%        | Get-Date -Format "yyyy/MM/dd"                                                              |
-| %TIME%        | Get-Date -Format "HH::mm:ss"                                                               |
-| %RANDOM%      | Get-Random -Minimum 0 -Maximum 32767                                                       |
+| %~d0            | Split-Path -Path $PSCommandPath -Qualifier                                                 |
+| %~p0            | (Get-Item $PSCommandPath ).Directory.Name                                                  |
+| %~n0            | (Get-Item $PSCommandPath ).Basename                                                        |
+| %~x0            | (Get-Item $PSCommandPath ).Extension                                                       |
+| %CD%            | Get-Location                                                                               |
+| %DATE%          | Get-Date -Format "yyyy/MM/dd"                                                              |
+| %TIME%          | Get-Date -Format "HH::mm:ss"                                                               |
+| %TEMP%          | $env:TEMP                                                                                  |
+| %RANDOM%        | Get-Random -Minimum 0 -Maximum 32767                                                       |
+| %USERDOMAIN%    | (Get-ADDomain -Current LoggedOnUser).NetBIOSName                                           |
+| %USERNAME%      | [System.Security.Principal.WindowsIdentity]::GetCurrent().Name                             |
+| %COMPUTERNAME%  | Get-ComputerInfo -Property CSName                                                          |
+
