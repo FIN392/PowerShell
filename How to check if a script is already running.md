@@ -1,8 +1,10 @@
 ```PowerShell
-# Lock file name
+# Get a name for the lock file.
 $strLockFile = "$env:TEMP\" + $((Get-Item $PSCommandPath).Basename) + ".lck"
 
-# Check if lock file if properly updated
+# If the saved date in the lock file has not yet arrived,
+# the script is considered to be working correctly and
+# therefore the execution of this instance is canceled.
 if ( Test-Path $strLockFile -PathType Leaf ) {
     if ( (Get-Date) -le [DateTime](Get-Content -Path "$strLockFile") ) {
       "*"
@@ -14,7 +16,8 @@ if ( Test-Path $strLockFile -PathType Leaf ) {
 }
 
 # Set how long the script will take to run.
-# If it takes longer, it is considered to have failed and therefore another instance of the script can be executed.
+# If it takes longer, it is considered to have failed and
+# therefore another instance of the script can be executed.
 ((Get-Date).Add((New-TimeSpan -Days 0 -Hours 0 -Minutes 0 -Seconds 10))).GetDateTimeFormats('o') `
     | Out-File -FilePath "$strLockFile"
 
