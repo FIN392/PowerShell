@@ -1,6 +1,9 @@
+```PowerShell
+# Public IP
+( ( Invoke-WebRequest -Uri https://api.myip.com/ ).Content | ConvertFrom-Json ).ip
 
+# IP + Country
+( Invoke-WebRequest -Uri https://api.myip.com/ ).Content | ConvertFrom-Json
 
-(( Invoke-WebRequest -Uri https://api.myip.com/).Content | ConvertFrom-Json).ip
-
-
-( Invoke-WebRequest -Uri https://api.myip.com/).Content | ConvertFrom-Json
+# Thanks to https://www.myip.com/
+```
