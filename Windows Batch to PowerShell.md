@@ -34,7 +34,8 @@ Fully agree, but this list will be a good starting point for that new *way of th
 | MOVE            | Move-Item                                                                                  |
 | OPENFILES       | Get-SmbOpenFile                                                                            |
 | PATH            | Set-Item -Path Env:Path                                                                    |
-| PAUSE           | [Console]::ReadKey()                                                                       |
+| PAUSE           | Start-Sleep                                                                                |
+| PING            | Test-Connection                                                                            |
 | POPD            | Pop-Location                                                                               |
 | PRINT           | Out-Printer                                                                                |
 | PROMPT          | function prompt {}                                                                         |
