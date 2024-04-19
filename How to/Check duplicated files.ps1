@@ -1,4 +1,3 @@
-
 '.' | Get-ChildItem -Recurse |
     Get-FileHash -ErrorAction SilentlyContinue |
         Group-Object 'Hash' |
