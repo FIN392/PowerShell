@@ -1,4 +1,3 @@
-```PowerShell
 # Get a name for the lock file.
 $strLockFile = "$env:TEMP\" + $((Get-Item $PSCommandPath).Basename) + ".lck"
 
@@ -26,4 +25,3 @@ if ( Test-Path $strLockFile -PathType Leaf ) {
 # YOUR CODE GOES HERE
 #
 #
-```
