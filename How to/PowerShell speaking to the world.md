@@ -1,4 +1,3 @@
-```PowerShell
 # Create Voice object
 $Voice = New-Object -ComObject Sapi.spvoice
 
@@ -21,4 +20,3 @@ $Voice.Speak("I don't know what to say. ok, I'll just say: Hello world!")
 
 # Much more...
 $Voice | Get-Member
-```
